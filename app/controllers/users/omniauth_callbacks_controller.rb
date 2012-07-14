@@ -1,20 +1,24 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def facebook
-    session["token"] = request.env["omniauth.auth"].credentials.token
+    #session["token"] = request.env["omniauth.auth"].credentials.token
     session[:signed_in_with] = request.env["omniauth.auth"].provider
+    session[:fb_img] = request.env["omniauth.auth"].info.image
     process_callback
   end
 
   def twitter
     session[:screen_name] = request.env["omniauth.auth"].extra.raw_info.screen_name
     session[:signed_in_with] = request.env["omniauth.auth"].provider
+		session[:tw_img] = request.env["omniauth.auth"].extra.raw_info.profile_image_url
     process_callback
   end
 
 #changed by Chetan Date 12-07-12 START
   def linkedin
 		process_callback
+    session[:signed_in_with] = request.env["omniauth.auth"].provider
+		session[:lin_img] = request.env["omniauth.auth"].info.image
 	  session["linkedin_auth"] = true
   end
 
@@ -28,6 +32,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 #changed by Chetan Date 12-07-12 END
 
+
   private
 
   def process_callback
@@ -37,7 +42,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       process_create_user
     end
   end
-
 
   def add_authentication
     auth = request.env["omniauth.auth"]
@@ -68,7 +72,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def process_create_user
     auth = request.env["omniauth.auth"]
-    session["twitter_id"]  = auth.uid
+
     authentication = Authentication.find_by_provider_and_uid(auth['provider'], auth['uid'])
 
     if authentication.present?

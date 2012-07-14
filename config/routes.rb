@@ -1,17 +1,17 @@
 HireInfluence::Application.routes.draw do
   devise_for :businesses
-  devise_scope :user do
-    match 'users/sign_out' => 'devise/sessions#destroy'
-    match "/users/callback" => "users/omniauth_callbacks#callback"
-  end
-  devise_for :users, :controllers => { omniauth_callbacks: "users/omniauth_callbacks" }
 
+  devise_for :users, :controllers => { omniauth_callbacks: "users/omniauth_callbacks" }  do
+    match 'users/callback' => 'users/omniauth_callbacks#callback'
+    match '/users/sign_out' => 'devise/sessions#destroy'
+  end
 
   namespace :users do
     match '/twitter_fillup' => 'users#twitter_fillup', :via=>:post
     match '/profile' => 'profile#index'
     match '/profile_edit' => 'profile#profile_edit'
-		match '/profile/unlink' => 'profile#unlink'
+    match '/update_profile' => 'profile#update_profile'
+		match '/unlink' => 'profile#unlink'
   end
 
   namespace :businesses do

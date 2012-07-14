@@ -204,9 +204,12 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
-  config.omniauth :twitter, "pJzV0LOOtNqrJ7RHVtaTdA", "6tXZXIONBRHVzDZ2lIl5R9G3S2DrkeqxW6GM1pVGVE"
-  config.omniauth :facebook, "232193500233565", "d7d043200598a9a81074d24ba0656398",{:scope => 'publish_stream, offline_access,user_about_me,user_activities,user_checkins,user_education_history,user_events,user_groups,user_hometown,user_interests,user_likes,user_location,user_notes,user_photos,user_questions,user_status,user_videos,user_website,user_work_history,read_stream,offline_access', :client_options=> {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  config.omniauth :twitter, "9rgPKpQJil0ZaPgSVCeprw", "WB9tAjq11TDLXPKvpTjGF1PkemjzyNnIt1iG3nKSU"
+  config.omniauth :facebook, '378213712235941', 'bc520fa55d3fbd8483baef0ee5d0c046', { :scope=>'email'}
   config.omniauth :linkedin, "szojbrb1rmct", "4e9xQcJET33lVvfk"
+
+  #config.omniauth :facebook, "232193500233565", "d7d043200598a9a81074d24ba0656398",{:scope => 'publish_stream, offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  #config.omniauth :twitter, "9rgPKpQJil0ZaPgSVCeprw", "WB9tAjq11TDLXPKvpTjGF1PkemjzyNnIt1iG3nKSU", :strategy_class => OmniAuth::Strategies::Twitter
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

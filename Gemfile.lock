@@ -1,12 +1,3 @@
-GIT
-  remote: git://github.com/pengwynn/linkedin.git
-  revision: dae65d8f20558ecffdd59d36d674e7a061d9b8a0
-  specs:
-    linkedin (0.3.7)
-      hashie (~> 1.2)
-      multi_json (~> 1.0)
-      oauth (~> 0.4)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -60,7 +51,7 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.1.3)
-    em-websocket (0.3.8)
+    em-websocket (0.3.6)
       addressable (>= 2.1.1)
       eventmachine (>= 0.12.9)
     erubis (2.7.0)
@@ -122,6 +113,10 @@ GEM
     jwt (0.1.4)
       json (>= 1.2.4)
     libv8 (3.3.10.4)
+    linkedin (0.3.7)
+      hashie (~> 1.2)
+      multi_json (~> 1.0)
+      oauth (~> 0.4)
     listen (0.4.7)
       rb-fchange (~> 0.0.5)
       rb-fsevent (~> 0.9.1)
@@ -272,7 +267,7 @@ DEPENDENCIES
   haml (>= 3.1.5)
   haml-rails (>= 0.3.4)
   jquery-rails
-  linkedin!
+  linkedin
   mysql2
   omniauth
   omniauth-facebook

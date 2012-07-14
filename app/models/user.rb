@@ -3,6 +3,11 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+	require 'net/http'
+	require 'rubygems'
+	require 'json'
+	require 'open-uri'
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable
@@ -13,6 +18,10 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
+
+  after_update :update_twitter, :update_facebook
+  after_create :update_twitter, :update_facebook
+
   value :twit_fol
 
   value :fb_fol
@@ -25,12 +34,17 @@ class User < ActiveRecord::Base
 
   value :linkedin_count
 
+  set :linkedin_recc
+
   sorted_set :twit_rank, :global => true
   sorted_set :fb_rank, :global => true
   sorted_set :klout_rank, :global => true
   sorted_set :peerindex_rank, :global => true
   sorted_set :kred_rank, :global => true
   sorted_set :linkedin_rank, :global => true
+
+  set :linkedin_recommendations, :global => true
+
 
   def twitter_followers=(val)
     self.twit_fol = val
@@ -78,6 +92,14 @@ class User < ActiveRecord::Base
     self.linkedin_count.value
   end
 
+  def linkedin_reccomendation=(val)
+    self.linkedin_recc.add(val)
+    self.linkedin_recommendations[self.id].add(val)
+  end
+  def linkedin_reccomendation
+    self.linkedin_recc.members
+  end
+
   def apply_omniauth(auth)
     self.email = auth['extra']['raw_info']['email'] if auth['extra']['raw_info']['email']
     self.password = Devise.friendly_token[0,20]
@@ -90,10 +112,9 @@ class User < ActiveRecord::Base
 
   def update_twitter
     auth = self.authentications.find_by_provider(:twitter)
-    puts auth
     if auth
-      t = Twitter.new(oauth_token: auth.token, oauth_token_secret: auth.secret)
-      self.twitter_followers = t.user.followers
+      t = Twitter::Client.new(oauth_token: auth.token, oauth_token_secret: auth.secret)
+      self.twitter_followers = t.user.follower_count
     end
   end
 
@@ -111,10 +132,10 @@ class User < ActiveRecord::Base
   end
 
   def update_peerindex
-
-  	#Authentication.find_by_user_id()
-		#http://api.peerindex.net/v2/profile/show.json?id=simoncast&api_key=617522e8644572b4fe0c9d79ef74b4f2
-    # TODO: write similar code as above, to persist data in REDIS
+  	auth = self.authentications.find_by_provider(:twitter)
+		#data = Net::HTTP.get(URI.parse("http://api.peerindex.net/v2/profile/show.json?id=#{auth.uid}&api_key=617522e8644572b4fe0c9d79ef74b4f2"))
+#		result = JSON.parse(data)
+#		self.peerindex_score = result["peerindex"]
   end
 
   def update_kred

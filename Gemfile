@@ -34,7 +34,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
-gem 'linkedin', :git => "git://github.com/pengwynn/linkedin.git"
+
 gem 'redis-objects'
 
 gem 'ffaker'
@@ -44,6 +44,7 @@ gem 'thin'
 
 gem 'twitter'
 gem 'fb_graph'
+gem 'linkedin'
 
 gem 'carrierwave'
 gem 'fog'
