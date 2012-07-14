@@ -1,0 +1,40 @@
+!!!
+%html
+  %head
+    %title= content_for?(:title) ? yield(:title) : "Hire Influence"
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    = yield(:head)
+    /[if lt IE 9]
+      <script type="text/javascript" src="js/html5.js"></script>
+      <link rel="stylesheet" href="css/ie.css" type="text/css" media="all">
+    :javascript
+      $(document).ready(function() {
+      try {
+      		$("#dropdown1, #dropdown2, #dropdown3, #dropdown4, #dropdown5, #dropdown6, #dropdown7, #dropdown8, #dropdown9, #dropdown10, #dropdown11, #dropdown12, #dropdown13, #dropdown14").msDropDown({mainCSS:'dd2'});
+      		//alert($.msDropDown.version);
+      		//$.msDropDown.create("body select");
+      		$("#ver").html($.msDropDown.version);
+      		} catch(e) {
+      			alert("Error: "+e.message);
+      		}
+      		$('.position input').ezMark();
+      		$('.linkedinList input[type="checkbox"]').ezMark({checkboxCls: 'ez-checkbox-green', checkedCls: 'ez-checked-green'});
+      		$('.listRow input[type="checkbox"]').ezMark({checkboxCls: 'ez-checkbox-small-check', checkedCls: 'ez-checked-small-check'});
+
+      })
+      function showHide()
+      {
+      	$('#toolTipBox').toggle();
+      }
+        %body
+    #wraper
+      .container
+        / Header part html start here
+        = render :partial => "/users/profile/header"
+        / Header part html end here
+        = yield
+        / Footer part html start here
+      = render :partial => "/users/profile/footer"
+      / Footer part html end here

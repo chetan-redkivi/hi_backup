@@ -1,0 +1,1 @@
+<%= ERB.new(IO.read(Rails.root.to_s + "/config/settings.yml")).result %>

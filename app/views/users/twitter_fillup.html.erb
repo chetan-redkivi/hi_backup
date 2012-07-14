@@ -1,0 +1,8 @@
+<h2>Fill your email</h2>
+
+<%= form_for(@user, :url => users_twitter_fillup_path(@user)) do |f| %>
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email %></div>
+
+  <div><%= f.submit "Sign up" %></div>
+<% end %>

@@ -1,0 +1,13 @@
+count = 0
+100.times do 
+	ActiveRecord::Base.transaction do 
+		100.times do  
+			u = Factory(:user)
+			u.twitter_followers = rand(1000)
+			u.facebook_followers = rand(200)
+			u.klout_score = rand(100)
+			count += 1
+		end
+		puts "#{count}..."
+	end
+end

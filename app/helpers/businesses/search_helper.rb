@@ -1,0 +1,2 @@
+module Businesses::SearchHelper
+end

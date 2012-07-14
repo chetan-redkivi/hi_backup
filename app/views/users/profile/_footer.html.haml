@@ -1,0 +1,29 @@
+.footer-bg
+  .footer-box
+    .flogos
+      = image_tag("who-work.jpg",:class=>"fl")
+      = link_to "","#",:class => "klout-logo"
+      = link_to "","#",:class => "kr-logo"
+      = link_to "","#",:class => "peer-logo"
+      .cl
+    .btbox
+      .flinks
+        %ul
+          %li= link_to("Sample Profile","#")
+          %li= link_to("About us","#")
+          %li= link_to("Presss","#")
+          %li= link_to("Contact us","#")
+      .finput
+        .ftext Receive Updates
+        = text_field_tag("textfield","",:placeholder => "Enter Email Address")
+        = submit_tag("",:id => "button",:name=> "button")
+      .cl
+    .fline
+      .coyright Copyright © 2012 Hire Influence. All rights reserved.
+      .btmlogo
+        = link_to "","#",:class => "twitticon"
+        = link_to "","#",:class => "facebookicon"
+        = link_to "","#",:class => "inicon"
+        = link_to "","#",:class => "shareicon"
+      .cl
+/ Footer part html end here

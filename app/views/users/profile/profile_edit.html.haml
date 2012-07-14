@@ -1,0 +1,154 @@
+/ Middle part html start here
+- content_for :status_desc, text_field_tag("textfield3","",:placeholder => "Start typing here...")
+.middlebg
+  = form_for @user_profile, url: "/update_profile" do |f|
+    .profileEdit
+      .profilePicture
+        %span.profileBg
+          = image_tag("profile_img.png",:border=>"0")
+        .selectProfile
+          %label Choose Profile Image
+          %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+            %tr
+              %td{:align => "left", :valign => "top"}
+                %span.profileSmall
+                  = image_tag("profile_img_small.png",:border=>"0")
+              %td{:align => "center", :valign => "top"}
+                %span.profileSmall
+                  = image_tag("profile_img_small.png",:border=>"0")
+              %td{:align => "right", :valign => "top"}
+                %span.profileSmall
+                  = image_tag("profile_img_small.png",:border=>"0")
+            %tr
+              %td{:align => "center", :valign => "middle"}
+                = f.radio_button("img_url","")
+                = image_tag("twitter.png",:border=>"0")
+              %td{:align => "center", :valign => "middle"}
+                = f.radio_button("img_url","")
+                = image_tag("facebook.png",:border=>"0")
+              %td{:align => "center", :valign => "middle"}
+                = f.radio_button("img_url","")
+                = image_tag("linkedin.png",:size=>"19x19",:border=>"0")
+      .welcomePart
+        %h2.title Welcome, jason!
+        %span.listRow
+          %label.field Full Name
+          = f.text_field("fullname")
+        %span.listRow
+          %label.field Email
+          = f.text_field("email")
+        %span.listRow
+          %label.field
+            Position
+            \#{link_to "","#",:title => "title",:class => "help"}
+          - Position.all.each do |p|
+            %span
+              = check_box_tag "user_profile[user_positions][]", p.id
+              %label
+                = p.title
+        %span.listRow
+          %label.field Zip Code
+          = f.text_field("fullname")
+        %span.listRow
+          %label.field Industry
+          =# collection_select 'user_profile[user_industries]','',Industry.all,'id','title',:style=>"width:250px;",:size=>"1"
+      .rightExperience
+        .darkBox.mrB10
+          %h6.mrB8 Years of Experience
+          - Department.all.each do |d|
+            %span.listRow
+              %span.labeLeft
+
+                %label{:class => cycle("btnBlue", "btnOrange","btnSlate")}= d.title      #Added By Chetan
+                = link_to "","#",:class => "help mrT3",:title => "Help"
+              = select_tag "user_profile[user_experiences][#{d.title}]", options_for_select((1..35).to_a.each { |u| [u,u] }),:style => "width:162px;",:size=>"1"
+        .darkBoxBottom
+          %h6.mrB3
+            Resume
+            %span (Accepted file formats: .doc, .rtf)
+          %input{:name => "user_profile[user_attachments][]", :type => "file"}/
+    .cl
+    .profileContent
+      .leftContent
+        %h3.title
+          Linked
+          %img{:alt => "", :border => "0", :height => "27", :src => "/assets/title_in.png", :width => "28"}/
+          %span Recommendations
+        %p Please select a MAXIMUM of 5 recommendations to be made viewable to employers.
+        %table.linkedinList{:border => "0", :cellpadding => "0", :cellspacing => "0"}
+        - if !@recommendations.nil?
+          - @recommendations.each do |rec|
+            %tr
+              %td{:valign => "middle", :width => "8%"}
+                = check_box_tag("check")
+              %td{:valign => "middle", :width => "92%"}
+                .colonbg
+                  = rec["recommendation_text"]
+                  %span.date
+                    = rec["recommender"]["first_name"] + " " +rec["recommender"]["last_name"]
+                    /%i August 18, 2011
+        .v-more
+          = image_tag("view-wn.jpg")
+          = link_to "View More","#"
+      .rightContent
+        .darkBox.mrB17
+          %h4 Networks
+          %p Connect your networks with Hire Influence to maximize your exposure to potential employears.
+          %ul.networksList
+            - [:twitter, :facebook,:linkedin].each do |provider|
+              %li
+                %label
+                  = image_tag("#{provider.to_s}_large.png",:border=> "0")
+                  = "#{provider.to_s.capitalize}"
+                - if @providers.include?(provider.to_s)
+                  %span.connectLink
+                    Connected as
+                    - case provider.to_s
+                    - when 'twitter'
+                      \#{link_to "@#{session[:screen_name]}","https://twitter.com/#{session[:screen_name]}",:target=>"_blank"}
+                    - when 'facebook'
+                      \#{link_to FbGraph::User.me(Authentication.find_by_provider(:facebook).token).fetch.name,"https://facebook.com/#{Authentication.find_by_provider(provider).uid}",:target=>"_blank"}
+                      - if session[:signed_in_with].nil?
+                        = link_to "Unlink","/profile/unlink",:class => "unlink"
+                    - when 'linkedin'
+                      = link_to "#{session["lin_name"]}",session["publicProfileUrl"],:target=>"_blank"
+                      %br
+                      %br
+                      %a.btnOrg{:href => user_omniauth_authorize_path(provider),:style => "color:white"}
+                        %span Connect now
+                    -else
+                      %a.btnOrg{:href => user_omniauth_authorize_path(provider)}
+                        %span Connect now
+                - else
+                  %a.btnOrg{:href => user_omniauth_authorize_path(provider)}
+                    %span Connect now
+
+        .darkBox
+          %h4
+            Influence Scoring
+            \#{image_tag("help.png",:size=> "16x16",:class => "help")}
+          %p Connect your networks with Hire Influence to maximize your exposure to potential employears.
+          %ul.networksList
+            %li
+              %label
+                = image_tag("k_icon_large.png",:border => "0")
+                Klout
+              %span
+                %a.btnOrg{:href => ""}
+                  %span Connect now
+            %li
+              %label
+                = image_tag("kr_large.png",:border => "0")
+                Kred
+              %span
+                %a.btnOrg{:href => ""}
+                  %span Connect now
+            %li
+              %label
+                = image_tag("3circl_large.png",:border => "0")
+                Peer Index
+              %span
+                %a.btnOrg{:href => ""}
+                  %span Connect now
+    .cl
+/ MIddle part html end here
