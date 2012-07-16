@@ -1,7 +1,6 @@
 %h1 My profile
 
-- [:twitter, :facebook,:linkedin].each do |provider|
+- [:twitter, :facebook].each do |provider|
   = "#{provider.to_s.capitalize}:"
   = @providers.include?(provider.to_s) ? "Connected" : (link_to "Connect your #{provider.to_s.capitalize} account", user_omniauth_authorize_path(provider))
   %br
-= link_to "User Edit Profile","/users/profile_edit"

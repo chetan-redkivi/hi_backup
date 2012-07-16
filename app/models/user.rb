@@ -3,10 +3,10 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-	require 'net/http'
-	require 'rubygems'
-	require 'json'
-	require 'open-uri'
+  require 'net/http'
+  require 'rubygems'
+  require 'json'
+  require 'klout'
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -19,8 +19,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
 
-  after_update :update_twitter, :update_facebook
-  after_create :update_twitter, :update_facebook
+  after_update :update_twitter, :update_facebook, :update_peerindex, :update_klout,:update_kred
+  after_create :update_twitter, :update_facebook, :update_peerindex, :update_klout,:update_kred
 
   value :twit_fol
 
@@ -40,7 +40,8 @@ class User < ActiveRecord::Base
   sorted_set :fb_rank, :global => true
   sorted_set :klout_rank, :global => true
   sorted_set :peerindex_rank, :global => true
-  sorted_set :kred_rank, :global => true
+  sorted_set :kred_inf, :global => true
+  sorted_set :kred_or, :global => true
   sorted_set :linkedin_rank, :global => true
 
   set :linkedin_recommendations, :global => true
@@ -68,13 +69,23 @@ class User < ActiveRecord::Base
     self.klout_sc.value
   end
 
-  def kred_score=(val)
-    self.kred_sc = val
-    self.kred_rank[self.id] = val
+  def kred_influence=(val)
+    self.kred_inf = val
+    self.kred_inf[self.id] = val
   end
-  def kred_score
-    self.kred_sc.value
+  def kred_influence
+    self.kred_inf.value
   end
+
+  def kred_outreach
+    self.kred_or.value
+  end
+
+  def kred_outreach=(val)
+    self.kred_or = val
+    self.kred_or[self.id] = val
+  end
+
 
   def peerindex_score=(val)
     self.peerindex_count = val
@@ -133,13 +144,28 @@ class User < ActiveRecord::Base
 
   def update_peerindex
   	auth = self.authentications.find_by_provider(:twitter)
-		#data = Net::HTTP.get(URI.parse("http://api.peerindex.net/v2/profile/show.json?id=#{auth.uid}&api_key=617522e8644572b4fe0c9d79ef74b4f2"))
-#		result = JSON.parse(data)
-#		self.peerindex_score = result["peerindex"]
+    if auth
+      data = Net::HTTP.get(URI.parse("http://api.peerindex.net/v2/profile/profile.json?id=#{auth.uid}&api_key=617522e8644572b4fe0c9d79ef74b4f2&identity=twitter_id"))
+      result = JSON.parse(data)
+      self.peerindex_score = result["peerindex"]
+    end
   end
 
   def update_kred
-    # TODO: write similar code as above, to persist data in REDIS
+    auth = self.authentications.find_by_provider(:twitter)
+    if auth
+      data = Net::HTTP.get(URI.parse("http://api.kred.com/kredscore?term=#{auth.screen_name}&source=twitter&app_id=eb3f5999&app_key=2b586daaa270a5f91b9513ba538b7090"))
+      result = JSON.parse(data)
+     # self.kred_inf = result["data"][0]["influence"]
+    end
+  end
+
+  def update_klout
+    Klout.api_key = "9wvktmm43dsc7rmatmhwhksh"
+    auth = self.authentications.find_by_provider(:twitter)
+    klout_id = Klout::Identity.find_by_screen_name(auth.screen_name)
+    user = Klout::User.new(klout_id.id).score
+    self.klout_score =  user.score.round
   end
 
 end

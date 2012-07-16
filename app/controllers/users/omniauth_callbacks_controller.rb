@@ -2,16 +2,21 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def facebook
     #session["token"] = request.env["omniauth.auth"].credentials.token
-    session[:signed_in_with] = request.env["omniauth.auth"].provider
-    session[:fb_img] = request.env["omniauth.auth"].info.image
+    auth = request.env["omniauth.auth"]
+    session[:signed_in_with] = auth.provider
+    session[:fb_img] = auth.info.image
     process_callback
+		Authentication.find_by_provider_and_user_id(auth.provider,session["warden.user.user.key"][1][0]).update_attribute('screen_name',auth.info.name)
   end
 
   def twitter
-    session[:screen_name] = request.env["omniauth.auth"].extra.raw_info.screen_name
-    session[:signed_in_with] = request.env["omniauth.auth"].provider
-		session[:tw_img] = request.env["omniauth.auth"].extra.raw_info.profile_image_url
+    auth =  request.env["omniauth.auth"]
+    session[:screen_name] = auth.extra.raw_info.screen_name
+    session[:signed_in_with] = auth.provider
+		session[:tw_img] = auth.extra.raw_info.profile_image_url
     process_callback
+    Authentication.find_by_provider_and_user_id(auth.provider,session["warden.user.user.key"][1][0]).update_attribute('screen_name',session[:screen_name])
+
   end
 
 #changed by Chetan Date 12-07-12 START
@@ -30,7 +35,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 	  end
 	  redirect_to "/users/profile_edit"
   end
-#changed by Chetan Date 12-07-12 END
+  #changed by Chetan Date 12-07-12 END
 
 
   private
@@ -49,11 +54,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
  		if authentication.nil? && authentication.blank?
 			current_user.register_omniauth(auth)
 			current_user.save!
-		  flash[:notice] = "Connected to #{auth["provider"]} successfully."
+      flash[:notice] = "Connected to #{auth["provider"]} successfully."
 		end
+
 # Added By Chetan 14/07/2012
 		if auth.provider == 'linkedin'
 		  session["lin_name"] = auth.info.name
+      authentication.update_attribute('screen_name',auth.info.name)
       if !request.env["omniauth.auth"].extra.raw_info.publicProfileUrl.nil?
       	session["publicProfileUrl"] = request.env["omniauth.auth"].extra.raw_info.publicProfileUrl
       else
@@ -68,7 +75,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 	    redirect_to users_profile_path
 		end
   end
-# End
 
   def process_create_user
     auth = request.env["omniauth.auth"]

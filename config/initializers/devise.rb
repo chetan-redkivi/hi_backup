@@ -205,7 +205,8 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   config.omniauth :twitter, "9rgPKpQJil0ZaPgSVCeprw", "WB9tAjq11TDLXPKvpTjGF1PkemjzyNnIt1iG3nKSU"
-  config.omniauth :facebook, '378213712235941', 'bc520fa55d3fbd8483baef0ee5d0c046', { :scope=>'email'}
+  #config.omniauth :facebook, '378213712235941', 'bc520fa55d3fbd8483baef0ee5d0c046', { :scope=>'email'}
+  config.omniauth :facebook, "232193500233565", "d7d043200598a9a81074d24ba0656398",{:scope => 'publish_stream,email offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
   config.omniauth :linkedin, "szojbrb1rmct", "4e9xQcJET33lVvfk"
 
   #config.omniauth :facebook, "232193500233565", "d7d043200598a9a81074d24ba0656398",{:scope => 'publish_stream, offline_access', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}

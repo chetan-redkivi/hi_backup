@@ -1,0 +1,2 @@
+module Users::OtherScoreHelper
+end

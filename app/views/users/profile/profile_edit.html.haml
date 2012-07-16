@@ -1,17 +1,19 @@
 / Middle part html start here
 :javascript
   function changeProfileImg(profileImgUrl){
-  	alert(profileImgUrl);
-  	$('.profileImg').replaceWith('<div class="profileImg" style="display:block"><img width="150" height="150" src="/assets/'+profileImgUrl+'"></div>')
+  	$('.profileImg').html('<img width="162" height="162" src="'+profileImgUrl+'">')
   }
 - content_for :status_desc, text_field_tag("textfield3","",:placeholder => "Start typing here...")
 .middlebg
-  = form_for @user_profile, url: "update_profile" do |f|
+  = form_for @user_profile, url: "update_profile", :html => {:multipart => true} do |f|
     .profileEdit
       .profilePicture
         %span.profileBg
           .profileImg{:style => "display:block"}
-            = image_tag("profile_img.png",:border=>"0")
+            - if @user_profile.img_url.nil?
+              = image_tag("profile_img.png",:border=>"0")
+            - else
+              = image_tag(@user_profile.img_url,:size => "162x162",:border=>"0")
         .selectProfile
           %label Choose Profile Image
           %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
@@ -27,13 +29,13 @@
                   = image_tag(session[:lin_img],:size=>'41x41',:border=>"0")
             %tr
               %td{:align => "center", :valign => "middle"}
-                = radio_button_tag("user_profile[img_url]","#{session[:tw_img]}", false, :onclick => "changeProfileImg('')")
+                = radio_button_tag("user_profile[img_url]","#{session[:tw_img]}", false, :onclick => 'changeProfileImg(this.value)')
                 = image_tag("twitter.png",:border=>"0")
               %td{:align => "center", :valign => "middle"}
-                = radio_button_tag("user_profile[img_url]","#{session[:fb_img]}", false, :onclick => "changeProfileImg('#{session[:fb_image]}')")
+                = radio_button_tag("user_profile[img_url]","#{session[:fb_img]}", false, :onclick => 'changeProfileImg(this.value)')
                 = image_tag("facebook.png",:border=>"0")
               %td{:align => "center", :valign => "middle"}
-                = radio_button_tag("user_profile[img_url]","#{session[:lin_img]}", false,:onclick => "changeProfileImg('#{session[:lin_image]}')")
+                = radio_button_tag("user_profile[img_url]","#{session[:lin_img]}", false,:onclick => 'changeProfileImg(this.value)')
                 = image_tag("linkedin.png",:size=>"19x19",:border=>"0")
       .welcomePart
         %h2.title Welcome, jason!
@@ -74,7 +76,12 @@
           %h6.mrB3
             Resume
             %span (Accepted file formats: .doc, .rtf)
-          %input{:name => "user_profile[user_attachments][]", :type => "file"}/
+          = file_field_tag "user_profile[user_attachments][]"
+          %br
+          - @user_profile.user_attachments.each do |file|
+            = link_to File.basename(file.attachment.path), file.attachment.url
+            =# check_box_tag 'user_profile[user_attachments_remove][]' , File.basename(file.attachment.path)
+
     .cl
     %input{name: "submit", type: 'submit' }
     .profileContent
@@ -85,18 +92,17 @@
           %span Recommendations
         %p Please select a MAXIMUM of 5 recommendations to be made viewable to employers.
         %table.linkedinList{:border => "0", :cellpadding => "0", :cellspacing => "0"}
-          - if !@recommendations.nil?
-            - @recommendations.each do |rec|
-              %tr
-                %td{:valign => "middle", :width => "8%"}
-                  .ez-checkbox-green
-                    = check_box_tag("check")
-                %td{:valign => "middle", :width => "92%"}
-                  .colonbg
-                    = rec["recommendation_text"]  # Added By Chetan
-                    %span.date
-                      = rec['recommender']["first_name"]+" "+rec['recommender']["last_name"]    # Added By Chetan
-                      /%i August 18, 2011
+        - if !@recommendations.nil?  # Added By Chetan
+          - @recommendations.each do |rec|
+            %tr
+              %td{:valign => "middle", :width => "8%"}
+                = check_box_tag("[reccomendation_ids][]",rec.id)
+              %td{:valign => "middle", :width => "92%"}
+                .colonbg
+                  = rec["recommendation_text"]  # Added By Chetan
+                  %span.date
+                    = rec['recommender']["first_name"]+" "+rec['recommender']["last_name"]    # Added By Chetan
+                    /%i August 18, 2011
         .v-more
           = image_tag("view-wn.jpg")
           = link_to "View More","#"
@@ -115,6 +121,7 @@
                     Connected as
                     - case provider.to_s
                     - when 'twitter'
+                      - session[:screen_name] = (session[:screen_name].blank?)? "#{Authentication.find_by_provider_and_user_id("twitter",session["warden.user.user.key"][1][0]).screen_name}" : "#{session[:screen_name]}"
                       \#{link_to "@#{session[:screen_name]}","https://twitter.com/#{session[:screen_name]}",:target=>"_blank"}
                       - if session[:signed_in_with] != provider.to_s
                         =# link_to "Unlink","/users/profile/unlink",:class => "unlink"
@@ -147,21 +154,24 @@
                 = image_tag("k_icon_large.png",:border => "0")
                 Klout
               %span
-                %a.btnOrg{:href => ""}
-                  %span Connect now
+                %a.btnOrg{:href => "/users/klout_score"}
+                  %span
+                    = (session["klout_score"].nil?)? 'Connect Now':'Connected'
             %li
               %label
                 = image_tag("kr_large.png",:border => "0")
                 Kred
               %span
-                %a.btnOrg{:href => ""}
-                  %span Connect now
+                %a.btnOrg{:href => "/users/kred_score"}
+                  %span
+                    = (session["kred_influence"].nil? && session["kred_outreach"].nil?)? 'Connect Now':'Connected'
             %li
               %label
                 = image_tag("3circl_large.png",:border => "0")
                 Peer Index
               %span
-                %a.btnOrg{:href => ""}
-                  %span Connect now
+                %a.btnOrg{:href => "/users/peerindex"}
+                  %span
+                    = (session["peerindex"].nil?)? 'Connect Now':'Connected'
     .cl
 / MIddle part html end here

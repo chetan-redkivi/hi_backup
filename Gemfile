@@ -45,7 +45,7 @@ gem 'thin'
 gem 'twitter'
 gem 'fb_graph'
 gem 'linkedin'
-
+gem 'klout'
 gem 'carrierwave'
 gem 'fog'
 
