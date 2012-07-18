@@ -1,0 +1,77 @@
+.profilePicture
+  %span.profileBg
+    .profileImg{:style => "display:block"}
+      - if @user_profile.img_url.nil?
+        = image_tag("profile_img.png",:border=>"0")
+      - else
+        = image_tag(@user_profile.img_url,:size => "162x162",:border=>"0")
+  .selectProfile
+    %label Choose Profile Image
+    %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+      %tr
+        %td{:align => "left", :valign => "top"}
+          %span.profileSmall
+            = image_tag(session[:tw_img],:size=>'41x41',:border=>"0")
+        %td{:align => "center", :valign => "top"}
+          %span.profileSmall
+            = image_tag(session[:fb_img],:size=>'41x41',:border=>"0")
+        %td{:align => "right", :valign => "top"}
+          %span.profileSmall
+            = image_tag(session[:lin_img],:size=>'41x41',:border=>"0")
+      %tr
+        %td{:align => "center", :valign => "middle"}
+          = radio_button_tag("user_profile[img_url]","#{session[:tw_img]}",(@user_profile.img_url.nil?)? false:@user_profile.img_url.include?("twimg.com"), :onclick => 'changeProfileImg(this.value)')
+          = image_tag("twitter.png",:border=>"0")
+        %td{:align => "center", :valign => "middle"}
+          = radio_button_tag("user_profile[img_url]","#{session[:fb_profile_img]}", (@user_profile.img_url.nil?)? false:@user_profile.img_url.include?("facebook.com"), :onclick => 'changeProfileImg(this.value)')
+          = image_tag("facebook.png",:border=>"0")
+        %td{:align => "center", :valign => "middle"}
+          = radio_button_tag("user_profile[img_url]","#{session[:lin_img]}", (@user_profile.img_url.nil?)? false:@user_profile.img_url.include?("licdn.com"),:onclick => 'changeProfileImg(this.value)')
+          = image_tag("linkedin.png",:size=>"19x19",:border=>"0")
+.welcomePart
+  %h2.title  Welcome #{(@user_profile.fullname.nil? && @user_profile.fullname.blank?)?session[:screen_name] : @user_profile.fullname}!
+  %span.listRow
+    %label.field Full Name
+    = f.text_field("fullname")
+  %span.listRow
+    %label.field Email
+    = f.text_field("email")
+  %span.listRow
+    %label.field
+      Position
+      \#{link_to "","#",:title => "title",:class => "help"}
+    - if !@positions.nil?
+      - @positions.each do |p|
+        %span
+          = check_box_tag "user_profile[positions][]", p.id, @user_profile.user_positions.collect{|pos| pos.position.id}.include?(p.id)
+          %label
+            = p.title
+  %span.listRow
+    %label.field Zip Code
+    = f.text_field("zipcode")
+  %span.listRow
+    %label.field Industry
+    = select_tag 'user_profile[industries][]',
+        options_from_collection_for_select(@industries, :id, :title, (@user_profile.user_industries.blank? ? "" : @user_profile.user_industries.first.industry.id)) ,
+        :style=>"width:250px;",:size=>"1"
+.rightExperience
+  .darkBox.mrB10
+    %h6.mrB8 Years of Experience
+    - if !@departments.nil?
+      - @departments.each do |d|
+        %span.listRow
+          %span.labeLeft
+            %label{:class => cycle("btnBlue", "btnOrange","btnSlate")}= d.title      #Added By Chetan
+            = link_to "","#",:class => "help mrT3",:title => "Help"
+          = select_tag "user_profile[user_experiences][#{d.id}]", options_for_select((1..35).to_a.each { |u| [u,u] },
+              @user_profile.user_experiences.blank? ? "" : @user_profile.user_experiences.select{|user_exp| user_exp.department.id == d.id}.first.exp_in_yrs),:style => "width:162px;",:size=>"1"
+  .darkBoxBottom
+    %h6.mrB3
+      Resume
+      %span (Accepted file formats: .doc, .rtf)
+    = file_field_tag "user_profile[user_attachments][]"
+    %br
+    - @user_profile.user_attachments.each do |file|
+      = link_to File.basename(file.attachment.path), file.attachment.url
+      =# check_box_tag 'user_profile[user_attachments_remove][]' , File.basename(file.attachment.path)
+

@@ -1,0 +1,10 @@
+%tr
+  %td{:valign => "middle", :width => "8%"}
+    .ez-checkbox-green
+      = check_box_tag("recommendation_ids[]",recommendation.id,current_user.linkedin_recommendations.include?(recommendation.id),:class => "ez-hide")
+  %td{:valign => "middle", :width => "92%"}
+    .colonbg
+      = recommendation["recommendation_text"]  # Added By Chetan
+      %span.date
+        = recommendation['recommender']["first_name"]+" "+recommendation['recommender']["last_name"]    # Added By Chetan
+        /%i August 18, 2011

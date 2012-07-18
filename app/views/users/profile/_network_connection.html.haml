@@ -1,0 +1,82 @@
+.darkBox.mrB17
+  %h4 Networks
+  %p Connect your networks with Hire Influence to maximize your exposure to potential employears.
+  %ul.networksList
+    - [:twitter, :facebook,:linkedin].each do |provider|
+      %li
+        %label
+          = image_tag("#{provider.to_s}_large.png",:border=> "0")
+          = "#{provider.to_s.capitalize}"
+        - if @providers.include?(provider.to_s)
+          %span.connectLink
+            Connected as
+            - case provider.to_s
+            - when 'twitter'
+              - session[:screen_name] = (session[:screen_name].blank?)? "#{Authentication.find_by_provider_and_user_id("twitter",session["warden.user.user.key"][1][0]).screen_name}" : "#{session[:screen_name]}"
+              \#{link_to "@#{session[:screen_name]}","https://twitter.com/#{session[:screen_name]}",:target=>"_blank"}
+              - if session[:signed_in_with] != provider.to_s
+                =# link_to "Unlink","/users/profile/unlink",:class => "unlink"
+            - when 'facebook'
+              \#{link_to FbGraph::User.me(Authentication.find_by_provider(:facebook).token).fetch.name,"https://facebook.com/#{Authentication.find_by_provider(provider).uid}",:target=>"_blank"}
+              - if session[:signed_in_with] != provider.to_s
+                =# link_to "Unlink","/users/profile/unlink",:class => "unlink"
+            - when 'linkedin'
+              = link_to "#{session["lin_name"]}",session["publicProfileUrl"],:target=>"_blank"
+              - if session[:signed_in_with] != provider.to_s && session["lin_name"].nil?
+                %br
+                %a.btnOrg{:href => user_omniauth_authorize_path(provider),:style => "color:white"}
+                  %span Connect now
+                =# link_to "Unlink","/users/profile/unlink",:class => "unlink"
+              %br
+            -else
+              %a.btnOrg{:href => user_omniauth_authorize_path(provider)}
+                %span Connect now
+        - else
+          %a.btnOrg{:href => user_omniauth_authorize_path(provider)}
+            %span Connect now
+.darkBox
+  %h4
+    Influence Scoring
+    \#{image_tag("help.png",:size=> "16x16",:class => "help")}
+  %p Connect your networks with Hire Influence to maximize your exposure to potential employears.
+  %ul.networksList
+    %li
+      %label
+        = image_tag("k_icon_large.png",:border => "0")
+        Klout
+      - if session["klout_score"].nil?
+        %span
+          %a.btnOrg{:href => "/users/klout_score"}
+            %span
+              Connect Now
+      - else
+        %span.connectLink
+          Connected as
+          = link_to session[:screen_name],"http://klout.com/#/#{session[:screen_name]}",:target => "_blank"
+
+    %li
+      %label
+        = image_tag("kr_large.png",:border => "0")
+        Kred
+      - if session["kred_influence"].nil? && session["kred_outreach"].nil?
+        %span
+          %a.btnOrg{:href => "/users/kred_score"}
+            %span
+              Connect Now
+      - else
+        %span.connectLink
+          Connected as
+          = link_to session[:screen_name],"http://kred.com/#{session[:screen_name]}",:target => "_blank"
+    %li
+      %label
+        = image_tag("3circl_large.png",:border => "0")
+        Peer Index
+      - if session["peerindex"].nil?
+        %span
+          %a.btnOrg{:href => "/users/peerindex"}
+            %span
+              Connect Now
+      - else
+        %span.connectLink
+          Connected as
+          = link_to session[:screen_name],"http://kred.com/#{session[:screen_name]}",:target => "_blank"

@@ -16,16 +16,17 @@ class Users::OtherScoreController < ApplicationController
   def kred_score
     auth = Authentication.find_by_provider_and_user_id('twitter',session["warden.user.user.key"][1][0])
     if auth
-      data = Net::HTTP.get(URI.parse("http://api.kred.com/kredscore?term=#{auth.screen_name}&source=twitter&app_id=eb3f5999&app_key=2b586daaa270a5f91b9513ba538b7090"))
+      data = Net::HTTP.get(URI.parse("http://api.kred.com/kredscore?term=#{session[:screen_name]}&source=twitter&app_id=eb3f5999&app_key=2b586daaa270a5f91b9513ba538b7090"))
       result = JSON.parse(data)
-      session["kred_influence"] = result["data"][0]["influence"]
-      session["kred_outreach"] = result["data"][0]["outreach"]
+		  session["kred_influence"] = result["data"][0]["influence"]
+		  session["kred_outreach"] = result["data"][0]["outreach"]
+		  redirect_to "/users/profile_edit"
     end
-    redirect_to "/users/profile_edit"
   end
 
   def peerindex
     auth = Authentication.find_by_provider_and_user_id('twitter',session["warden.user.user.key"][1][0])
+
     if auth
       data = Net::HTTP.get(URI.parse("http://api.peerindex.net/v2/profile/profile.json?id=#{auth.uid}&api_key=617522e8644572b4fe0c9d79ef74b4f2&identity=twitter_id"))
       result = JSON.parse(data)

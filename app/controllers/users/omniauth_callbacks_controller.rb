@@ -15,16 +15,16 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     session[:signed_in_with] = auth.provider
 		session[:tw_img] = auth.extra.raw_info.profile_image_url
     process_callback
-    Authentication.find_by_provider_and_user_id(auth.provider,session["warden.user.user.key"][1][0]).update_attribute('screen_name',session[:screen_name])
-
   end
 
 #changed by Chetan Date 12-07-12 START
   def linkedin
 		process_callback
-    session[:signed_in_with] = request.env["omniauth.auth"].provider
-		session[:lin_img] = request.env["omniauth.auth"].info.image
+		auth = request.env["omniauth.auth"]
+    session[:signed_in_with] = auth.provider
+		session[:lin_img] = auth.info.image
 	  session["linkedin_auth"] = true
+		Authentication.find_by_provider_and_user_id(auth.provider,session["warden.user.user.key"][1][0]).update_attribute('screen_name',auth.info.name)
   end
 
   def callback
@@ -56,11 +56,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 			current_user.save!
       flash[:notice] = "Connected to #{auth["provider"]} successfully."
 		end
-
 # Added By Chetan 14/07/2012
 		if auth.provider == 'linkedin'
 		  session["lin_name"] = auth.info.name
-      authentication.update_attribute('screen_name',auth.info.name)
       if !request.env["omniauth.auth"].extra.raw_info.publicProfileUrl.nil?
       	session["publicProfileUrl"] = request.env["omniauth.auth"].extra.raw_info.publicProfileUrl
       else
@@ -80,7 +78,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     auth = request.env["omniauth.auth"]
 
     authentication = Authentication.find_by_provider_and_uid(auth['provider'], auth['uid'])
-
     if authentication.present?
       flash[:notice] = "Signed in successfully."
       sign_in_and_redirect(:user, authentication.user)
@@ -95,7 +92,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         render 'users/twitter_fillup'
       else
         if user.save(:validate=>false)
+
           flash[:notice] = "Account created and you have been signed in!"
+          Authentication.find_by_provider_and_user_id(auth.provider,session["warden.user.user.key"][1][0]).update_attribute('screen_name',auth.extra.raw_info.screen_name)
           sign_in_and_redirect(:user, user)
         else
           flash[:error] = "Error while logging in! #{user.errors.full_messages.join(" and ")}"

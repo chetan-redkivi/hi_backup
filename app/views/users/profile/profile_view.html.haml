@@ -1,0 +1,59 @@
+/ Middle part html start here
+.middlebg
+  .print-text Printable Virsion
+  .profileEdit.mrB15
+    = render :partial => 'user_profile'
+  .cl
+  .profileContent
+    .leftContent
+      = image_tag("text-img.jpg",size: "558x1086")
+      .peerindex-box
+        %p
+          = image_tag("peer-index.jpg",size: "106x39")
+        .threebox
+          .p-one
+            %h2
+              Overall Score
+              = image_tag("help.png",size: "16x16",class: "help")
+            .ylobox
+              Peerbox
+              %h1 16
+          .p-two
+            %h2
+              Score Breakdown
+              = image_tag("help.png",size: "16x16",class: "help")
+            %ul
+              %li
+                = image_tag("pink-img.jpg")
+                Activity 76
+              %li
+                = image_tag("green-img.jpg")
+                Audience 62
+              %li
+                = image_tag("blue-img.jpg.jpg")
+                Authority 52
+          .p-three
+            %h2
+              Score Breakdown
+              \#{image_tag("help.png",size: "16x16",class: "help")}
+            %ul
+              %li
+                %span> 50
+                Peer influence
+              %li
+                %span> 41
+                Enterpreneursh
+              %li
+                %span> 15
+                Social crm
+              %li
+                %span> 15
+                Startups
+              %li
+                %span> 41
+                Economics
+    .rightContent
+      .rightdarkbox.mrB10
+        = render :partial => 'profile_view_right_part'
+  .cl
+  / MIddle part html end here

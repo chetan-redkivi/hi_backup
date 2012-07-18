@@ -179,7 +179,7 @@ article, aside, audio, canvas, command, datalist, details, embed, figcaption, fi
 .leftContent h3 span{ font-size:12px;}
 .leftContent h3 img{ margin:0px 2px; vertical-align:middle;}
 .leftContent p{ margin:5px 0px 10px 0px;}
-.linkedinList td{ padding:15px 0px; border-bottom:1px dotted #ADADAD; line-height:18px;}
+.linkedinList td{ padding:15px 0px; border-bottom:1px dotted #ADADAD; line-height:15px;}
 .linkedinList td .date{ font-size:13px; font-weight:bold; display:block;}
 .rightContent{ width:330px; float:left;}
 .rightContent .darkBox{ width:292px; padding:18px 18px 8px 20px; background:#e6e8e7; border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; clear:both; float:left;}

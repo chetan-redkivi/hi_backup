@@ -1,0 +1,81 @@
+%h2 Get Connected
+.gbox
+  .gbox-left
+    = image_tag("gt.jpg")
+    = current_user.twit_fol.value
+    %br/
+    Followers
+  .gbox-right
+    %span> Follow
+    = "@#{session[:screen_name]}"
+  .cl
+.gbox
+  .gbox-left
+    = image_tag("gf.jpg")
+    = current_user.fb_fol.value
+    %br/
+    Friends
+  .gbox-right
+    %span Friend
+    = FbGraph::User.me(Authentication.find_by_provider_and_user_id(:facebook,current_user.id).token).fetch.name
+  .cl
+.gbox
+  .gbox-left
+    = image_tag("gin.jpg")
+    = current_user.linkedin_count.value
+    %br/
+    Connections
+  .gbox-right
+    %span Connect
+    = Authentication.find_by_provider_and_user_id(:linkedin,current_user.id).screen_name
+  .cl
+.rightdarkbox
+.link-nws
+  %h2
+    Linked
+    \#{image_tag("title_in.png",size:  "28x27",border: '0')}
+    %span Recommendations
+  .nwsbox
+    %h3
+      Mary Margaret,
+      %span Company Name Here
+    = image_tag("sml-colon.jpg",class: "colonimg")
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a velit ac leo volutpat vulputate fermentum pharetra felis.
+    %br/
+    = link_to "/" do
+      = image_tag("readfull-aro.jpg")
+      Read Full
+  .nwsbox
+    %h3
+      Mary Margaret,
+      %span Company Name Here
+    = image_tag("sml-colon.jpg",class: "colonimg" )
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a velit ac leo volutpat vulputate fermentum pharetra felis.
+    %br/
+    = link_to "#" do
+      = image_tag("readfull-aro.jpg")
+      Read Full
+  .nwsbox
+    %h3
+      Mary Margaret,
+      %span Company Name Here
+    = image_tag("sml-colon.jpg", class: "colonimg" )
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a velit ac leo volutpat vulputate fermentum pharetra felis.
+    %br/
+    = link_to "#" do
+      = image_tag("readfull-aro.jpg")
+      Read Full
+  .nwsbox
+    %h3
+      Mary Margaret,
+      %span Company Name Here
+    = image_tag("sml-colon.jpg",class: "colonimg" )
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a velit ac leo volutpat vulputate fermentum pharetra felis.
+    %br/
+    = link_to "#" do
+      = image_tag("readfull-aro.jpg")
+      Read Full
+  .nlastlink
+    = link_to "#" do
+      = image_tag("org-aro.jpg")
+      Read All Full Recommendtions

@@ -1,0 +1,220 @@
+<!--Middle part html start here-->
+<div class="middlebg">
+	<div class="print-text">Printable Virsion</div>
+	<div class="profileEdit mrB15">
+		<div class="profilePicture">
+			<span class="profileBg">
+				<%=image_tag("profile_img.png",:border=>"0")%>
+			</span>
+		</div>
+		<div class="welcomePart">
+			<h2 class="title">Jason Pampell</h2>
+			<div class="profilebox">
+				<div class="profile-det">
+					<div class="profile-name">Email:<br />
+				</div>
+				<div class="profile-detail">
+					<span>
+						<%=link_to "/",:class => "btnOrg" do%>
+							<span>Contact Now</span>
+						<%end%>
+					</span>
+				</div>
+			</div>
+
+		  <div class="profile-det">
+		  	<div class="profile-name">Position:</div>
+		  	<div class="profile-detail">
+		  		<div class="checktab">
+		  	  	<%=check_box_tag("name")%>Full Time
+					</div>
+		  		<div class="checktab">
+		  	  	<%=check_box_tag("name2")%>Part TIme
+			  	</div>
+		  	</div>
+		  </div>
+
+		  <div class="profile-det">
+		  	<div class="profile-name">Location:
+					<%image_tag("help.png"),:size => "16x16",:class => "help"%>
+				</div>
+		  	<div class="profile-detail">New York City, NY 12345</div>
+		  </div>
+
+		  <div class="profile-det">
+		  	<div class="profile-name">Distance:</div>
+		  	<div class="profile-detail">7 Miles</div>
+		  </div>
+
+		  <div class="profile-det">
+		  	<div class="profile-name">Industry:</div>
+		  	<div class="profile-detail">Media</div>
+		  </div>
+
+		</div>
+	</div>
+  <div class="rightExperience">
+    <div class="darkBox mrB10">
+      <h6 class="mrB8">Years of Experience</h6>
+      <span class="listRow">
+      	<span class="labeLeft">
+        	<label class="btnBlue">Sales</label>
+      		<a href="#" title="Help" class="help mrT3">&nbsp;</a>
+    		</span>
+    		<div class="yeartext">0 Years</div>
+  		</span>
+  		<span class="listRow">
+  			<span class="labeLeft">
+          <label class="btnOrange">Marketing</label>
+          <a href="#" title="Help" class="help mrT3">&nbsp;</a>
+        </span>
+        <div class="yeartext">0 Years </div>
+      </span>
+      <span class="listRow">
+      	<span class="labeLeft">
+    	    <label class="btnSlate">Advertising</label>
+          <a href="#" title="Help" class="help mrT3">&nbsp;</a>
+        </span>
+        <div class="yeartext"> 0 Years</div>
+      </span>
+    </div>
+    <div class="dark-bottom">
+    	<div class="box1">Resume</div>
+        <div class="box2">
+        	<span>
+      			<%=link_to "",:class: "btnOrg" do%>
+      				<span>Download Resume</span>
+      			<%end%>
+    			</span>
+  			</div>
+        <div class="box3"><em>(.doc, rtf)</em></div>
+  		</div>
+    </div>
+  </div>
+	<div class="cl"></div>
+	<div class="profileContent">
+		<div class="leftContent">
+			<%=image_tag("text-img.jpg",:sizeL: "558x1086")%>
+		  	<div class="peerindex-box">
+		  	  <p>
+		  	  	<%=image_tag("peer-index.jpg",:size: "106x39")%>
+	  	  	</p>
+				<div class="threebox">
+				<div class="p-one">
+	  		  <h2>Overall Score
+		  	  	<%=image_tag("help.png",:size: "16x16",:class: "help")%>
+	  	  	</h2>
+	        <div class="ylobox">Peerbox
+	    	    <h1>16</h1>
+	        </div>
+      	</div>
+        <div class="p-two">
+          <h2>Score Breakdown
+		  	  	<%=image_tag("help.png",:size: "16x16",:class: "help")%>
+        	</h2>
+        	<ul>
+						<li><%=image_tag("pink-img.jpg")%>Activity 76</li>
+						<li><%=image_tag("green-img.jpg")%>Audience 62</li>
+						<li><%=image_tag("blue-img.jpg.jpg")%>Authority 52</li>
+          </ul>
+        </div>
+        <div class="p-three">
+		      <h2>Score Breakdown
+					  	<%=image_tag("help.png",:size: "16x16",:class: "help")%>
+		    	</h2>
+		      <ul>
+		      	<li><span>50</span>Peer influence</li>
+		          <li> <span>41</span>Enterpreneursh</li>
+		          <li><span>15</span>Social crm </li>
+		          <li><span>15</span>Startups </li>
+		          <li><span>41</span>Economics </li>
+		      </ul>
+        </div>
+			</div>
+  	</div>
+  </div>
+	<div class="rightContent">
+		<div class="rightdarkbox mrB10">
+			<h2>Get Connected</h2>
+	  	<div class="gbox">
+	  		<div class="gbox-left">
+	  			<%=image_tag("gt.jpg")%>125<br /> Followers
+  			</div>
+	      <div class="gbox-right">
+	      	<span>Follow</span>@BrandBroker
+      	</div>
+	      <div class="cl"></div>
+	  	</div>
+
+      <div class="gbox">
+      	<div class="gbox-left">
+      		<%=image_tag("gf.jpg")%>371<br /> Friends
+    		</div>
+        <div class="gbox-right">
+        	<span>Friend</span> jason Pampell
+      	</div>
+        <div class="cl"></div>
+    	</div>
+
+      <div class="gbox">
+      	<div class="gbox-left">
+      		<%=image_tag("gin.jpg")%>298<br /> Connections
+    		</div>
+        <div class="gbox-right">
+        	<span>Connect</span>
+        	Jason Pampell
+        </div>
+        <div class="cl"></div>
+      </div>
+    </div>
+    <div class="rightdarkbox">
+			<div class="link-nws">
+				<h2>Linked
+					<%=image_tag("title_in.png",:size: "28x27",:border: '0')%>
+					<img src="images/title_in.png" alt="" width="28" height="27" border="0" />
+					<span>Recommendations</span>
+				</h2>
+				<div class="nwsbox">
+					<h3>Mary Margaret, <span>Company Name Here</span></h3>
+					<%=image_tag("sml-colon.jpg",:class: "colonimg")%>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a velit ac leo volutpat vulputate fermentum pharetra felis.<br />
+					<%=link_to "/" do%>
+						<%=image_tag("readfull-aro.jpg")%>
+						Read Full
+					<%end%>
+				</div>
+				<div class="nwsbox">
+					<h3>Mary Margaret, <span>Company Name Here</span></h3>
+					<%=image_tag("sml-colon.jpg",:class: "colonimg" )%>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a velit ac leo volutpat vulputate fermentum pharetra felis.<br />
+					<%=link_to "#" do %>
+						<%=image_tag("readfull-aro.jpg")%>Read Full
+					<%end%>
+				</div>
+				<div class="nwsbox">
+					<h3>Mary Margaret, <span>Company Name Here</span></h3>
+					<%=image_tag("sml-colon.jpg",:class: "colonimg" )%>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a velit ac leo volutpat vulputate fermentum pharetra felis.<br />
+					<%=link_to "#" do %>
+						<%=image_tag("readfull-aro.jpg")%>Read Full
+					<%end%>
+				</div>
+				<div class="nwsbox">
+					<h3>Mary Margaret, <span>Company Name Here</span></h3>
+					<%=image_tag("sml-colon.jpg",:class: "colonimg" )%>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a velit ac leo volutpat vulputate fermentum pharetra felis.<br />
+					<%=link_to "#" do %>
+						<%=image_tag("readfull-aro.jpg")%>Read Full
+					<%end%>
+				</div>
+				<div class="nlastlink">
+					<%=link_to "#" do%>
+						<%=image_tag("org-aro.jpg")%>Read All Full Recommendtions
+					<%end%>
+         </div>
+        </div>
+      </div>
+    </div>
+	  <div class="cl"></div>
+  </div>
+<!--MIddle part html end here-->

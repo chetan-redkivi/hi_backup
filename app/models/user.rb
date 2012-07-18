@@ -43,8 +43,8 @@ class User < ActiveRecord::Base
   sorted_set :kred_inf, :global => true
   sorted_set :kred_or, :global => true
   sorted_set :linkedin_rank, :global => true
-
   set :linkedin_recommendations, :global => true
+
 
 
   def twitter_followers=(val)
@@ -99,17 +99,22 @@ class User < ActiveRecord::Base
     self.linkedin_count = val
     self.linkedin_rank[self.id] = val
   end
-  def linkedin_score
-    self.linkedin_count.value
-  end
+#  def linkedin_score
+#    self.linkedin_count.value
+#  end
 
   def linkedin_reccomendation=(val)
-    self.linkedin_recc.add(val)
-    self.linkedin_recommendations[self.id].add(val)
+		self.linkedin_recc.clear
+		self.linkedin_recommendations.clear
+		val.each do |rec_id|
+			self.linkedin_recc << rec_id
+	    self.linkedin_recommendations << rec_id
+		end
   end
-  def linkedin_reccomendation
-    self.linkedin_recc.members
-  end
+
+#  def linkedin_reccomendation
+#    self.linkedin_recc.members
+#  end
 
   def apply_omniauth(auth)
     self.email = auth['extra']['raw_info']['email'] if auth['extra']['raw_info']['email']
@@ -122,10 +127,10 @@ class User < ActiveRecord::Base
   end
 
   def update_twitter
-    auth = self.authentications.find_by_provider(:twitter)
+    auth = self.authentications.find_by_provider_and_user_id(:twitter,self.id)
     if auth
       t = Twitter::Client.new(oauth_token: auth.token, oauth_token_secret: auth.secret)
-      self.twitter_followers = t.user.follower_count
+     # self.twitter_followers = t.user.follower_count
     end
   end
 
@@ -133,14 +138,17 @@ class User < ActiveRecord::Base
     auth = self.authentications.find_by_provider(:facebook)
     if auth
       f = FbGraph::User.me(auth.token)
-      me = f.fetch
       self.facebook_followers = f.friends.count
     end
   end
 
-  def update_linkedin
-    # TODO: write similar code as above, to persist data in REDIS
+  def update_linkedin(connection_count)
+		self.linkedin_score = connection_count
   end
+
+	def update_linkedin_recc(recc_ids)
+		self.linkedin_reccomendation = recc_ids
+	end
 
   def update_peerindex
   	auth = self.authentications.find_by_provider(:twitter)
@@ -156,16 +164,18 @@ class User < ActiveRecord::Base
     if auth
       data = Net::HTTP.get(URI.parse("http://api.kred.com/kredscore?term=#{auth.screen_name}&source=twitter&app_id=eb3f5999&app_key=2b586daaa270a5f91b9513ba538b7090"))
       result = JSON.parse(data)
-     # self.kred_inf = result["data"][0]["influence"]
+     # self.kred_influence = result["data"][0]["influence"]
     end
   end
 
   def update_klout
     Klout.api_key = "9wvktmm43dsc7rmatmhwhksh"
     auth = self.authentications.find_by_provider(:twitter)
-    klout_id = Klout::Identity.find_by_screen_name(auth.screen_name)
-    user = Klout::User.new(klout_id.id).score
-    self.klout_score =  user.score.round
-  end
+		if auth
+		  klout_id = Klout::Identity.find_by_screen_name(auth.screen_name)
+		  user = Klout::User.new(klout_id.id).score
+		  self.klout_score =  user.score.round
+		end
+ end
 
 end

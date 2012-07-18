@@ -6,11 +6,16 @@ class Users::ProfileController < ApplicationController
   end
 
   def profile_edit
-  	@user =  User.find(1)
-		@providers = current_user.authentications.select(:provider).map {|a| a.provider}
-		if session["fb_img"].nil?
-		 session["fb_img"] = FbGraph::User.me(Authentication.find_by_provider(:facebook).token).fetch.picture
+	 # render :text => FbGraph::User.me(Authentication.find_by_provider(:facebook).token).friends.count.inspect and return false
+    @providers = current_user.authentications.select(:provider).map {|a| a.provider}
+		@departments = Department.all
+    @positions = Position.all
+    @industries = Industry.all
+    if session["fb_img"].nil?
+				session["fb_img"] = FbGraph::User.me(Authentication.find_by_provider(:facebook).token).fetch.picture
+				session[:fb_profile_img] =  session["fb_img"]+"?type=large"
 		end
+    session[:fb_profile_img] =  session["fb_img"].gsub('?type=square','?type=large')
 		if session["linkedin_auth"]
 			client = LinkedIn::Client.new("szojbrb1rmct", "4e9xQcJET33lVvfk")
 			if session[:atoken].nil?
@@ -24,6 +29,7 @@ class Users::ProfileController < ApplicationController
 			else
 				client.authorize_from_access(session[:atoken], session[:asecret])
 			end
+			session["linkedin_connections"] = client.connections.total
 			@recommendations = client.profile(:fields => %w(recommendations-received)).recommendations_received.all
 		end
 
@@ -35,19 +41,28 @@ class Users::ProfileController < ApplicationController
   end
 
   def update_profile
-   # render :text => params["reccomendation_ids"].inspect and return false
     is_user_pos_found = true if params[:user_profile][:positions]
     is_user_files_found = true if params[:user_profile][:user_attachments]
     is_user_exp_found = true if params[:user_profile][:user_experiences]
     is_user_ind_found = true if params[:user_profile][:industries]
-		is_user_rec_found = true if params["reccomendation_ids"]
+		is_user_rec_found = true if params["recommendation_ids"]
+    is_user_linkedin_connection_count = true if session["linkedin_connections"]
     convert_ids_to_objects(is_user_pos_found,'Position' ,:positions)
     convert_ids_to_objects(is_user_ind_found,'Industry' ,:industries)
 
-		if is_user_rec_found && !params["reccomendation_ids"].blank?
-			current_user.linkedin_recc << [1,2,3,4,5,6].join(',')
+		if is_user_linkedin_connection_count
+				current_user.linkedin_count.clear
+				current_user.update_linkedin(session["linkedin_connections"])
 		end
-		render :text => current_user.linkedin_recc and return false
+		current_user.linkedin_recommendations.clear
+		if is_user_rec_found
+			if params["recommendation_ids"].size > 5
+				flash[:notice] = "You have Selected More than 5 recommendations"
+				render :action => 'update_profile'
+			else
+				current_user.update_linkedin_recc(params["recommendation_ids"])
+			end
+		end
     if is_user_exp_found
       user_exp_hash = params[:user_profile][:user_experiences]
       unless user_exp_hash.nil? && user_exp_hash.empty?
@@ -58,6 +73,7 @@ class Users::ProfileController < ApplicationController
         params[:user_profile][:user_experiences] = user_exp_arr
       end
     end
+
 
     if is_user_files_found
       user_files =  params[:user_profile][:user_attachments]
@@ -79,6 +95,14 @@ class Users::ProfileController < ApplicationController
     end
     current_loggedin_user.user_profile= @user_profile
     current_loggedin_user.save
+  	redirect_to "/users/profile_edit"
+  end
+
+  def profile_view
+	   @user_profile = current_user.user_profile
+	  @user_positions = @user_profile.user_positions
+	  @departments = Department.all
+	 # render :text => @user_profile.user_positions.inspect and return false
   end
 
   private
