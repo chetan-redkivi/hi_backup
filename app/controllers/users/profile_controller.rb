@@ -6,33 +6,29 @@ class Users::ProfileController < ApplicationController
   end
 
   def profile_edit
-	 # render :text => FbGraph::User.me(Authentication.find_by_provider(:facebook).token).friends.count.inspect and return false
+#	  user =  FbGraph::User.me(Authentication.find_by_provider_and_user_id(:facebook,current_user.id).token).fetch.picture
+#	  render :text => user.inspect and return false
+	  #  render :text => FbGraph::User.me(Authentication.find_by_provider_and_user_id(:facebook,current_user.id).token).picture.inspect and return false
     @providers = current_user.authentications.select(:provider).map {|a| a.provider}
 		@departments = Department.all
     @positions = Position.all
     @industries = Industry.all
-    if session["fb_img"].nil?
-				session["fb_img"] = FbGraph::User.me(Authentication.find_by_provider(:facebook).token).fetch.picture
-				session[:fb_profile_img] =  session["fb_img"]+"?type=large"
-		end
-    session[:fb_profile_img] =  session["fb_img"].gsub('?type=square','?type=large')
-		if session["linkedin_auth"]
-			client = LinkedIn::Client.new("szojbrb1rmct", "4e9xQcJET33lVvfk")
-			if session[:atoken].nil?
-				if session["oauth_verifier"].nil?
-          session["oauth_verifier"] = Authentication.find_by_provider_and_user_id('linkedin',session["warden.user.user.key"][1][0]).token
-				end
-				pin = session["oauth_verifier"]
-				atoken, asecret = client.authorize_from_request(session[:rtoken], session[:rsecret], pin)
-				session[:atoken] = atoken
-				session[:asecret] = asecret
-			else
-				client.authorize_from_access(session[:atoken], session[:asecret])
-			end
-			session["linkedin_connections"] = client.connections.total
-			@recommendations = client.profile(:fields => %w(recommendations-received)).recommendations_received.all
-		end
-
+  #  render :text => current_user.user_profile.img_url.inspect and return false
+    if @providers.include?("facebook")
+	    session[:fb_img] = FbGraph::User.me(Authentication.find_by_provider_and_user_id(:facebook,current_user.id).token).fetch.picture
+	    session[:fb_profile_img] =  session[:fb_img]+"?type=large"
+    else
+	    session[:fb_img] =""
+	    session[:fb_profile_img] = ""
+    end
+    if @providers.include?("linkedin")
+	    authentication = Authentication.find_by_provider_and_user_id(:linkedin,current_user.id)
+      client = LinkedIn::Client.new
+      client.authorize_from_access(authentication.token,authentication.secret)
+      session["linkedin_connections"] = client.connections.total
+      @recommendations = client.profile(:fields => %w(recommendations-received)).recommendations_received.all
+      @lin_name = authentication.screen_name
+    end
     if current_user.user_profile.blank?
       @user_profile = UserProfile.new
     else
@@ -99,11 +95,51 @@ class Users::ProfileController < ApplicationController
   end
 
   def profile_view
-	   @user_profile = current_user.user_profile
-	  @user_positions = @user_profile.user_positions
-	  @departments = Department.all
-	 # render :text => @user_profile.user_positions.inspect and return false
+
+   @user_profile = current_user.user_profile
+   if @user_profile.user_attachments.blank?
+   	@user_documents = @user_profile.user_attachments
+   end
+   @user_positions = @user_profile.user_positions
+   @departments = Department.all
+   if !Authentication.find_by_provider_and_user_id(:linkedin,current_user.id).nil?
+	   @recommendations = []
+	   authentication = Authentication.find_by_provider_and_user_id(:linkedin,current_user.id)
+	   client = LinkedIn::Client.new
+     client.authorize_from_access(authentication.token,authentication.secret)
+     recommendations = client.profile(:fields => %w(recommendations-received)).recommendations_received.all
+     recommendations.each do |recommendation|
+	     if current_user.linkedin_recommendations.include?(recommendation.id)
+		        @recommendations << recommendation
+	     end
+     end
+   end
+
+
+
+	  # render :text => @user_profile.user_positions.inspect and return false
   end
+
+  def  unlink
+	  case params["provider"]
+		  when "facebook"
+				current_user.fb_rank.delete(current_user.fb_fol)
+				session["fb_name"]= ""
+		  when "linkedin"
+		  	current_user.linkedin_rank.delete(current_user.linkedin_recc)
+	  end
+	  authentication = Authentication.find_by_provider_and_user_id(params["provider"],current_user.id)
+	  authentication.destroy
+		redirect_to "/users/profile_edit"
+  end
+
+  def download
+  	user_profile = UserProfile.find(params["profile"])
+  	user_doc = user_profile.user_attachments.first
+		user_doc.attachment.path
+  	send_file("#{user_doc.attachment.path}")
+  end
+
 
   private
 

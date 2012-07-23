@@ -36,6 +36,8 @@ class User < ActiveRecord::Base
 
   set :linkedin_recc
 
+
+  set :users,:global => true
   sorted_set :twit_rank, :global => true
   sorted_set :fb_rank, :global => true
   sorted_set :klout_rank, :global => true
@@ -44,6 +46,7 @@ class User < ActiveRecord::Base
   sorted_set :kred_or, :global => true
   sorted_set :linkedin_rank, :global => true
   set :linkedin_recommendations, :global => true
+
 
 
 

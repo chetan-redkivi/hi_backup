@@ -1,0 +1,40 @@
+%h4
+  Influence Scoring
+  \#{image_tag("help.png",:size=> "16x16",:class => "help")}
+%p Connect your networks with Hire Influence to maximize your exposure to potential employears.
+%ul.networksList
+  %li
+    %label
+      = image_tag("k_icon_large.png",:border => "0")
+      Klout
+    - if session["klout_score"].nil?
+      %span
+        %a.btnOrg{:href => "/users/klout_score"}
+          %span
+            Connect Now
+    - else
+      %span.connectLink
+        Connected as
+        = link_to session[:screen_name],"http://klout.com/#/#{session[:screen_name]}",:target => "_blank"
+
+  %li
+    %label
+      = image_tag("kr_large.png",:border => "0")
+      Kred
+    - if session["kred_influence"].nil? && session["kred_outreach"].nil?
+      %span
+        %a.btnOrg{:href => "/users/kred_score"}
+          %span
+            Connect Now
+    - else
+      %span.connectLink
+        Connected as
+        = link_to session[:screen_name],"http://kred.com/#{session[:screen_name]}",:target => "_blank"
+  %li
+    %label
+      = image_tag("3circl_large.png",:border => "0")
+      Peer Index
+    %span
+      %a.btnOrg{:href => "/users/peerindex"}
+        %span
+          = (session["peerindex"].nil?)? 'Connect Now':'Connected'

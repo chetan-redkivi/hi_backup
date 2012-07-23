@@ -3,20 +3,27 @@
   function changeProfileImg(profileImgUrl){
   	$('.profileImg').html('<img width="162" height="162" src="'+profileImgUrl+'">')
   }
-- content_for :status_desc, text_field_tag("textfield3","",:placeholder => "Start typing here...")
-.middlebg
-  = form_for @user_profile, url: "update_profile", :html => {:multipart => true} do |f|
+
+= form_for @user_profile, url: "update_profile", :html => {:multipart => true} do |f|
+  .edit-topsearch
+    .leftbt
+      %h3 #{t('profile.why_me')}
+      = t('profile.in_65_chars')
+    .rightinput
+      = f.text_field(:description,:placeholder => t('profile.status_placeholder_msg'))
+    .cl
+    .rem-text #{t('profile.chars_remaining', total_chars: 65)}
+  .middlebg
     .profileEdit
       = render :partial => 'form',:locals => {:f => f}
     .cl
-    %input{name: "submit", type: 'submit' }
     .profileContent
       .leftContent
         %h3.title
-          Linked
+          #{t('profile.network.linkedin.linked')}
           %img{:alt => "", :border => "0", :height => "27", :src => "/assets/title_in.png", :width => "28"}/
-          %span Recommendations
-        %p Please select a MAXIMUM of 5 recommendations to be made viewable to employers.
+          %span #{t('profile.network.linkedin.recommendations')}
+        %p #{t('profile.network.linkedin.max_recommendations_msg')}
         %p
           = flash[:notice]
         %table.linkedinList{:border => "0", :cellpadding => "0", :cellspacing => "0"}
@@ -24,8 +31,9 @@
             = render :partial => 'recommendation',:collection => @recommendations
         .v-more
           = image_tag("view-wn.jpg")
-          = link_to "View More","#"
+          = link_to t('profile.network.linkedin.view_more'),"#"
       .rightContent
         = render :partial => 'network_connection'
+    = submit_tag("Submit",class: "button")
     .cl
 / MIddle part html end here

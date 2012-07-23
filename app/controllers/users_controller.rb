@@ -5,6 +5,8 @@ class UsersController < ApplicationController
     Rails.logger.info("auth is #{auth}")
     user.apply_omniauth(auth)
     if user.save(:validate=>false)
+      authentication = Authentication.find_by_uid_and_user_id(auth["uid"],user.id)
+      authentication.update_attribute('screen_name',auth["info"]["nickname"])
       flash[:notice] = "Account created and you have been signed in!"
       sign_in_and_redirect(:user, user)
     else

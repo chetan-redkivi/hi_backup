@@ -1,6 +1,6 @@
 carrier_wave:
   amazon_s3:
     bucket: <%= Rails.env %>
-    access_key: 1WFEDP5BY3YNN4HDDBR2
+    access_key: access_key_goes_here
     use_ssl: false
-    secret_key: OydczUyXuFQmr5czRmIa+U1TN6/5Tkve6g8V7fhJ
+    secret_key: amazon_s3_secret_key_goes_here

@@ -40,7 +40,7 @@ article, aside, audio, canvas, command, datalist, details, embed, figcaption, fi
 .myac a { color:#000; text-decoration:none; }
 .myac a:hover { color:#fe6f00; text-decoration:none; }
 .topslogan { padding:15px 10px; font-family:"HelveticaLTStd-Roman"; font-size:29px; font-weight:normal; color:#fff; }
-.ac-box { width:147px; height:131px; position:absolute; background:url(/assets/ac-bg.png) top left no-repeat; }
+.ac-box { width:147px; height:131px; position:absolute; background:url(/assets/ac-bg.png) top left no-repeat; z-index: 100;}
 .ac-box ul { margin:0; padding:30px 20px 0 20px; list-style:none; }
 .ac-box ul li { margin:0 0 5px 0; padding:0; background:url(/assets/line.jpg) bottom left repeat-x; font-family:"MyriadPro-Regular"; font-size:15px; color:#000; line-height:25px; }
 .ac-box ul li a { color:#000; text-decoration:none; }
@@ -259,4 +259,59 @@ a.peer-logo:hover { background-position:0 -29px; }
 .nlastlink { padding:0 0 5px 0; font-size:13px; color:#fd9704; text-transform:uppercase; font-weight:bold; }
 .nlastlink a { color:#fd9704; text-decoration:none; }
 .nlastlink a img { margin:0 5px 0 0; }
-.nlastlink a:hover { color:#026cba; text-decoration:none; }  
+.nlastlink a:hover { color:#026cba; text-decoration:none; }
+
+.peerindex-box { margin-top:10p; padding:25px 0 0 0; border-top:#fef200 solid 10px; color:#717370; }
+.peerindex-box p { margin:0; padding:0 0 20px; }
+.peerindex-box h2 { margin:0; padding:0 15px 0 0; font-weight:bold; font-size:16px; font-family:"HelveticaLTStd-Roman" ; color:#000; }
+.threebox { margin:0 0 10px 0; float:left; width:558px;}
+.p-one { width:160px; float:left; }
+.ylobox { margin:15px 0 0 0; padding:10px; width:95px; height:95px; text-align:center; background:#fff701; color:#000; font-size:16px; font-weight:bold; line-height:35px; }
+.ylobox h1 { margin:0; padding:5px 0; font-size:60px; font-weight: bold;}
+.p-two { width:190px; margin-right:25px; float:left; }
+.p-two ul { margin-top:15px; padding:25px 0; background:url(../images/peer-circles.jpg) top right no-repeat; }
+.p-two ul li{ font-size:10px; line-height:18px; text-transform:uppercase; }
+.p-two ul li img { margin:0 5px 0 0; }
+.p-three { width:182px; float:left; }
+.p-three ul { margin-top:15px; }
+.p-three ul li{ font-size:11px; line-height:22px; text-transform:uppercase; }
+.p-three ul li span { margin-top:5px; background:#defb51; text-align:center; color:#000; float:right; line-height:15px; clear:both; }
+/* Added By:: Chetan*/
+.blue {
+    background: -moz-linear-gradient(center top , #00ADEE, #0078A5) repeat scroll 0 0 transparent;
+    border: 1px solid #0076A3;
+    color: #D9EEF7;
+}
+.blue:hover {
+    background: -moz-linear-gradient(center top , #0095CC, #00678E) repeat scroll 0 0 transparent;
+}
+.blue:active {
+    background: -moz-linear-gradient(center top , #0078A5, #00ADEE) repeat scroll 0 0 transparent;
+    color: #80BED6;
+}
+.button {
+    border-radius: 6.5em 0.5em 8.5em 0.5em;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: inline-block;
+    font: 14px/100% Arial,Helvetica,sans-serif;
+    margin: 0 2px;
+    outline: medium none;
+    padding: 0.5em 2em 0.55em;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    vertical-align: baseline;
+    color:white;
+    background:#fd9704;
+}
+.button:hover {
+    text-decoration: none;
+}
+.button:active {
+    position: relative;
+    top: 1px;
+}
+.bigrounded {
+    border-radius: 2em 2em 2em 2em;
+}

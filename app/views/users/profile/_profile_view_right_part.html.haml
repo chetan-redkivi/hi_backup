@@ -1,81 +1,64 @@
-%h2 Get Connected
+%h2 #{t 'profile.view.get_connected'}
 .gbox
   .gbox-left
     = image_tag("gt.jpg")
     = current_user.twit_fol.value
     %br/
-    Followers
+    #{t 'profile.network.twitter.followers'}
   .gbox-right
-    %span> Follow
+    %span> #{t 'profile.network.twitter.follow'}
     = "@#{session[:screen_name]}"
   .cl
 .gbox
   .gbox-left
     = image_tag("gf.jpg")
-    = current_user.fb_fol.value
+    - if !Authentication.find_by_provider_and_user_id(:facebook,current_user.id).nil?
+      = current_user.fb_fol.value
     %br/
-    Friends
+    #{t 'profile.network.twitter.follow'}
   .gbox-right
-    %span Friend
-    = FbGraph::User.me(Authentication.find_by_provider_and_user_id(:facebook,current_user.id).token).fetch.name
+    - if !Authentication.find_by_provider_and_user_id(:facebook,current_user.id).nil?
+      %span #{t 'profile.network.fb.friend'}
+      = FbGraph::User.me(Authentication.find_by_provider_and_user_id(:facebook,current_user.id).token).fetch.name
+    - else
+      Not Connected
   .cl
 .gbox
   .gbox-left
     = image_tag("gin.jpg")
-    = current_user.linkedin_count.value
+    - if !Authentication.find_by_provider_and_user_id(:linkedin,current_user.id).nil?
+      = current_user.linkedin_count.value
     %br/
-    Connections
+    #{t 'profile.network.linkedin.connections'}
   .gbox-right
-    %span Connect
-    = Authentication.find_by_provider_and_user_id(:linkedin,current_user.id).screen_name
+    - if Authentication.find_by_provider_and_user_id(:linkedin,current_user.id).nil?
+      Not Connected
+    - else
+      %span #{t 'profile.network.linkedin.connect'}
+      = Authentication.find_by_provider_and_user_id(:linkedin,current_user.id).screen_name
   .cl
 .rightdarkbox
 .link-nws
   %h2
-    Linked
+    #{t 'profile.network.linkedin.linked'}
     \#{image_tag("title_in.png",size:  "28x27",border: '0')}
-    %span Recommendations
-  .nwsbox
-    %h3
-      Mary Margaret,
-      %span Company Name Here
-    = image_tag("sml-colon.jpg",class: "colonimg")
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a velit ac leo volutpat vulputate fermentum pharetra felis.
-    %br/
-    = link_to "/" do
-      = image_tag("readfull-aro.jpg")
-      Read Full
-  .nwsbox
-    %h3
-      Mary Margaret,
-      %span Company Name Here
-    = image_tag("sml-colon.jpg",class: "colonimg" )
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a velit ac leo volutpat vulputate fermentum pharetra felis.
-    %br/
-    = link_to "#" do
-      = image_tag("readfull-aro.jpg")
-      Read Full
-  .nwsbox
-    %h3
-      Mary Margaret,
-      %span Company Name Here
-    = image_tag("sml-colon.jpg", class: "colonimg" )
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a velit ac leo volutpat vulputate fermentum pharetra felis.
-    %br/
-    = link_to "#" do
-      = image_tag("readfull-aro.jpg")
-      Read Full
-  .nwsbox
-    %h3
-      Mary Margaret,
-      %span Company Name Here
-    = image_tag("sml-colon.jpg",class: "colonimg" )
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a velit ac leo volutpat vulputate fermentum pharetra felis.
-    %br/
-    = link_to "#" do
-      = image_tag("readfull-aro.jpg")
-      Read Full
+    %span #{t 'profile.network.linkedin.recommendations'}
+  - if !@recommendations.blank?
+    - @recommendations.each do |recommendation|
+      .nwsbox
+        %h3
+          = recommendation['recommender']["first_name"]+" "+recommendation['recommender']["last_name"]
+          %span
+            #{recommendation["recommendation_type"]["code"]}
+        = image_tag("sml-colon.jpg",class: "colonimg")
+        = recommendation["recommendation_text"]
+        %br/
+        = link_to "/" do
+          = image_tag("readfull-aro.jpg")
+          #{t 'profile.network.linkedin.read_full'}
+  - else
+    No Recommendation Found
   .nlastlink
     = link_to "#" do
       = image_tag("org-aro.jpg")
-      Read All Full Recommendtions
+      #{t 'profile.network.linkedin.read_all_full'}

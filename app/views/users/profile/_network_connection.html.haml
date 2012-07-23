@@ -1,6 +1,6 @@
 .darkBox.mrB17
-  %h4 Networks
-  %p Connect your networks with Hire Influence to maximize your exposure to potential employears.
+  %h4 #{t 'profile.network.networks'}
+  %p #{t 'profile.network.connect_with_hireinfluence'}
   %ul.networksList
     - [:twitter, :facebook,:linkedin].each do |provider|
       %li
@@ -9,74 +9,69 @@
           = "#{provider.to_s.capitalize}"
         - if @providers.include?(provider.to_s)
           %span.connectLink
-            Connected as
+            = t 'profile.network.connected_as'
             - case provider.to_s
             - when 'twitter'
               - session[:screen_name] = (session[:screen_name].blank?)? "#{Authentication.find_by_provider_and_user_id("twitter",session["warden.user.user.key"][1][0]).screen_name}" : "#{session[:screen_name]}"
-              \#{link_to "@#{session[:screen_name]}","https://twitter.com/#{session[:screen_name]}",:target=>"_blank"}
+              \#{link_to "@#{session[:screen_name]}","#{t 'profile.network.twitter.link'}#{session[:screen_name]}",:target=>"_blank"}
               - if session[:signed_in_with] != provider.to_s
                 =# link_to "Unlink","/users/profile/unlink",:class => "unlink"
             - when 'facebook'
-              \#{link_to FbGraph::User.me(Authentication.find_by_provider(:facebook).token).fetch.name,"https://facebook.com/#{Authentication.find_by_provider(provider).uid}",:target=>"_blank"}
-              - if session[:signed_in_with] != provider.to_s
-                =# link_to "Unlink","/users/profile/unlink",:class => "unlink"
+              \#{link_to FbGraph::User.me(Authentication.find_by_provider(:facebook).token).fetch.name,"#{t 'profile.network.fb.link'}#{Authentication.find_by_provider(provider).uid}",:target=>"_blank"}
+              = link_to "#{t 'profile.network.unlink'}","/users/profile/unlink?provider=#{provider.to_s}",:class => "unlink"
             - when 'linkedin'
-              = link_to "#{session["lin_name"]}",session["publicProfileUrl"],:target=>"_blank"
-              - if session[:signed_in_with] != provider.to_s && session["lin_name"].nil?
-                %br
-                %a.btnOrg{:href => user_omniauth_authorize_path(provider),:style => "color:white"}
-                  %span Connect now
-                =# link_to "Unlink","/users/profile/unlink",:class => "unlink"
+              = link_to "#{@lin_name}",session["publicProfileUrl"],:target=>"_blank"
+              = link_to "#{t 'profile.network.unlink'}","/users/profile/unlink?provider=#{provider.to_s}",:class => "unlink"
               %br
             -else
               %a.btnOrg{:href => user_omniauth_authorize_path(provider)}
-                %span Connect now
+                %span #{t 'profile.network.connect_now'}
         - else
           %a.btnOrg{:href => user_omniauth_authorize_path(provider)}
-            %span Connect now
+            %span #{t 'profile.network.connect_now'}
 .darkBox
   %h4
-    Influence Scoring
+    = t 'profile.network.influence_scoring'
     \#{image_tag("help.png",:size=> "16x16",:class => "help")}
-  %p Connect your networks with Hire Influence to maximize your exposure to potential employears.
+  %p #{t 'profile.network.connect_with_hireinfluence'}
   %ul.networksList
     %li
       %label
         = image_tag("k_icon_large.png",:border => "0")
-        Klout
+        = t 'profile.network.klout.label'
       - if session["klout_score"].nil?
         %span
           %a.btnOrg{:href => "/users/klout_score"}
             %span
-              Connect Now
+              #{t 'profile.network.connect_now'}
       - else
         %span.connectLink
-          Connected as
-          = link_to session[:screen_name],"http://klout.com/#/#{session[:screen_name]}",:target => "_blank"
+          = t 'profile.network.connected_as'
+          = link_to session[:screen_name],"#{t 'profile.network.klout.link'}#{session[:screen_name]}",:target => "_blank"
 
     %li
       %label
         = image_tag("kr_large.png",:border => "0")
-        Kred
+        #{t 'profile.network.kred.label'}
       - if session["kred_influence"].nil? && session["kred_outreach"].nil?
         %span
           %a.btnOrg{:href => "/users/kred_score"}
             %span
-              Connect Now
+              #{t 'profile.network.connect_now'}
       - else
         %span.connectLink
-          Connected as
-          = link_to session[:screen_name],"http://kred.com/#{session[:screen_name]}",:target => "_blank"
+          #{t 'profile.network.connected_as'}
+          = link_to session[:screen_name],"#{t 'profile.network.kred.link'}#{session[:screen_name]}",:target => "_blank"
     %li
       %label
         = image_tag("3circl_large.png",:border => "0")
-        Peer Index
+        #{t 'profile.network.peerindex.label'}
       - if session["peerindex"].nil?
         %span
           %a.btnOrg{:href => "/users/peerindex"}
             %span
-              Connect Now
+              #{t 'profile.network.connect_now'}
       - else
         %span.connectLink
-          Connected as
-          = link_to session[:screen_name],"http://kred.com/#{session[:screen_name]}",:target => "_blank"
+          #{t 'profile.network.connected_as'}
+          = link_to session[:screen_name],"#{session["peerindex_url"]}",:target => "_blank"

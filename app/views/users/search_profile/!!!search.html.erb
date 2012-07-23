@@ -1,0 +1,388 @@
+ <!--Middle part html start here-->
+<div class="middlebg">
+	<!--Left part html start here-->
+	<div class="leftpart">
+		<div class="leftbloks">
+	    <!--POSITION BLOCK-->
+      <div class="position">
+	      <h3>Position</h3>
+      	<ul>
+          <li><%=checkbox_tag("checkbox",'','',:id=>"checkbox")%> Full Time</li>
+          <li><%=checkbox_tag("checkbox",'','',:id=>"checkbox")%> Part Time</li>
+          <li><%=checkbox_tag("checkbox",'','',:id=>"checkbox")%> Promotional</li>
+        </ul>
+      </div>
+      <!--POSITION BLOCK END-->
+      <div class="cl"></div>
+    </div>
+    <div class="leftbloks">
+      <!--ZIPCODE BLOCK-->
+      <div class="zipcode">
+      	<div class="ziptext">Zipcode:</div>
+        <div class="zipbox">
+ 					<%=text_field_tag("textfield2","",:placeholder=> "e.g. 15650",:id =>"textfield2" )%>
+        </div>
+      </div>
+        <p> 0mi  250mi   ALL</p>
+        <div class="slidebg">
+       	  <div class="fill-slidebg">
+            	<div class="scrollbg">
+            		<%=link_to image_tag("scrollbg.png"),"#"%>
+          		</div>
+            </div>
+        </div>
+          <!--ZIPCODE BLOCK END-->
+        <div class="cl"></div>
+      </div>
+      <div class="leftbloks">
+      <!--INDUSTRY BLOCK-->
+	      <h3>Industry</h3>
+        <%=select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown5",:size=>"1" :style=>"width:135px;"%>
+        <!--INDUSTRY BLOCK END-->
+        <div class="cl"></div>
+			</div>
+
+			<div class="leftbloks">
+				<!--INDUSTRY BLOCK-->
+	      <h3>Year of Experience</h3>
+		    <div class="btnBlue btspace">Sales</div>
+        <%=select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown6",:size=>"1" :style=>"width:135px; margin-bottom:20px;"%>
+
+				<div class="btnOrange btspace">Marketing</div>
+        <%=select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown7",:size=>"1" :style=>"width:135px; margin-bottom:20px;"%>
+				<div class="btnSlate btspace">Advertising</div>
+        <%=select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown8",:size=>"1" :style=>"width:135px;"%>
+        <!--INDUSTRY BLOCK END-->
+          <div class="cl"></div>
+      </div>
+
+      <div class="leftbloks last">
+	      <!--INDUSTRY BLOCK-->
+        <h3>Twitter Followers</h3>
+        <%=select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown9",:size=>"1" :style=>"width:135px; margin-bottom:15px;"%>
+        <h3>Linkedln Contacts</h3>
+        <%=select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown10",:size=>"1" :style=>"width:135px; margin-bottom:15px;"%>
+        <h3>Facebook Friends</h3>
+        <%=select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown11",:size=>"1" :style=>"width:135px; margin-bottom:15px;"%>
+        <h3>Klout Score</h3>
+	      <%=select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown12",:size=>"1" :style=>"width:135px; margin-bottom:15px;"%>
+
+        <h3>Kred Score</h3>
+	      <%=select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown13",:size=>"1" :style=>"width:135px; margin-bottom:15px;"%>
+
+
+	      <h3>Peerindex Score</h3>
+			    <%=select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown14",:size=>"1" :style=>"width:135px; margin-bottom:15px;"%>
+        <!--INDUSTRY BLOCK END-->
+        <div class="cl"></div>
+      </div>
+    </div>
+    <!--Left part html start here-->
+    <div class="rightpart">
+  	  <h1>Search Results</h1>
+  	  <div class="intext">
+  	  	<div class="intop">
+    		  <div class="intop-left">
+    		  	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    		  	Quisque dictum   eros vel orci imperdiet mattis at non sapien.
+    		  	Aliquam quam orci, varius   sit amet rutrum vel, eleifend
+  		  	</div>
+    		<div class="paging">
+      	<ul>
+				  <li><%=link_to "#" do %>
+			  				<strong>PREV</strong>
+			  			<%end%>
+		  		</li>
+				  <li><%=link_to "#","1"%></li>
+				  <li><%=link_to "#","2"%></li>
+				  <li><%=link_to "#","3"%></li>
+				  <li><%=link_to "#","4"%></li>
+				  <li class="last">
+				  	<%=link_to "#" do%>
+				  		<strong>NEXT</strong>
+				  	<%end%>
+			  	</li>
+		    </ul>
+	      <div class="cl"></div>
+      </div>
+	    <div class="cl"></div>
+    </div>
+    <div class="detabox">
+	  	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td width="75" class="titlebg2">Candidate</td>
+				<td width="75" class="titlebg">
+					Distance
+					<%=image_tag("downaro.jpg",:class=>"downaro",:alt="")%>
+					<br />
+					<span>(miles)</span>
+				</td>
+				<td width="75" class="titlebg2">
+					Position
+					<%=image_tag("downaro.jpg",:class=>"downaro",:alt="")%>
+				</td>
+				<td width="75" class="titlebg">
+					Industry
+					<%=image_tag("downaro.jpg",:class=>"downaro",:alt="")%>
+				</td>
+				<td width="55" class="titlebg blue-bdr">
+					S
+					<%=image_tag("downaro.jpg",:class=>"downaro",:alt="")%>
+					<br />
+					<span>(years )</span>
+				</td>
+				<td width="55" class="titlebg org-bdr">
+					M
+					<%=image_tag("downaro.jpg",:class=>"downaro",:alt="")%>
+					<br />
+					<span>(years )</span>
+				</td>
+				<td width="55" class="titlebg slate-bdr">
+					S
+					<%=image_tag("downaro.jpg",:class=>"downaro",:alt="")%>
+					<br />
+					<span>(years )</span>
+				</td>
+				<td width="55" class="titlebg">
+					<%=image_tag("twitter-icon.jpg",:alt="")%>
+					<%=image_tag("downaro.jpg",:class=>"downaro2",:alt="")%>
+				</td>
+				<td width="50" class="titlebg2">
+					<%=image_tag("in-icon.jpg",:alt="")%>
+					<%=image_tag("downaro.jpg",:class=>"downaro2",:alt="")%>
+				</td>
+				<td width="50" class="titlebg">
+					<%=image_tag("facebook-icon.jpg",:alt="")%>
+					<%=image_tag("downaro.jpg",:class=>"downaro2",:alt="")%>
+				</td>
+				<td width="50" class="titlebg2">
+					<%=image_tag("k-icon.jpg",:alt="")%>
+					<%=image_tag("downaro.jpg",:class=>"downaro2",:alt="")%>
+				</td>
+				<td width="50" class="titlebg">
+					<%=image_tag("kr-icon.jpg",:alt="")%>
+					<%=image_tag("downaro.jpg",:class=>"downaro2",:alt="")%>
+				</td>
+				<td width="50" class="titlebg2" style="border-right:none;">
+					<%=image_tag("3circl-icon.jpg",:alt="")%>
+					<%=image_tag("downaro.jpg",:class=>"downaro2",:alt="")%>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="detaimgbg">
+						<%=image_tag("deta-img1.jpg",:alt="",:size=>"53x51")%>
+					</div>
+				</td>
+				<td>631</td>
+				<td>FT</td>
+				<td>      Media</td>
+				<td>3</td>
+				<td>5</td>
+				<td>8</td>
+				<td>12,419</td>
+				<td>560</td>
+				<td>274</td>
+				<td>71</td>
+				<td>344/02</td>
+				<td style="border-right:none;">75</td>
+			</tr>
+			<tr>
+				<td class="tdbg">
+					<div class="detaimgbg">
+						<%=image_tag("deta-img2.jpg",:alt="",:size=>"53x51")%>
+					</div>
+				</td>
+				<td class="tdbg">14</td>
+				<td class="tdbg">ALL</td>
+				<td class="tdbg">Clothing</td>
+				<td class="tdbg">6</td>
+				<td class="tdbg">2</td>
+				<td class="tdbg">1</td>
+				<td class="tdbg">3,264</td>
+				<td class="tdbg">330</td>
+				<td class="tdbg">913</td>
+				<td class="tdbg">36</td>
+				<td class="tdbg">682/ 08</td>
+				<td class="tdbg" style="border-right:none;">62</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="detaimgbg">
+						<%=image_tag("deta-img3.jpg",:alt="",:size=>"53x51")%>
+					</div>
+				</td>
+				<td>164</td>
+				<td>FT</td>
+				<td> Software     </td>
+				<td>3</td>
+				<td>5</td>
+				<td>14</td>
+				<td>706</td>
+				<td>919</td>
+				<td>312</td>
+				<td>71 </td>
+				<td>186 / 01</td>
+				<td style="border-right:none;">80</td>
+			</tr>
+			<tr>
+				<td class="tdbg">
+					<div class="detaimgbg">
+						<%=image_tag("deta-img4.jpg",:alt="",:size=>"53x51")%>
+					</div>
+				</td>
+				<td class="tdbg">21</td>
+				<td class="tdbg">PT</td>
+				<td class="tdbg">Construct</td>
+				<td class="tdbg">15</td>
+				<td class="tdbg">3</td>
+				<td class="tdbg">11</td>
+				<td class="tdbg">9,288</td>
+				<td class="tdbg">278</td>
+				<td class="tdbg">678</td>
+				<td class="tdbg">36</td>
+				<td class="tdbg">818 / 07</td>
+				<td class="tdbg" style="border-right:none;">56</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="detaimgbg">
+							<%=image_tag("deta-img3.jpg",:alt="",:size=>"53x51")%>
+					</div>
+				</td>
+				<td>33</td>
+				<td>FT</td>
+				<td> Restaurant</td>
+				<td>7</td>
+				<td>0</td>
+				<td>0</td>
+				<td>1,656</td>
+				<td>1,024</td>
+				<td>182</td>
+				<td>71 </td>
+				<td>712 / 03</td>
+				<td style="border-right:none;">73</td>
+			</tr>
+			<tr>
+				<td class="tdbg">
+					<div class="detaimgbg">
+							<%=image_tag("deta-img2.jpg",:alt="",:size=>"53x51")%>
+					</div>
+				</td>
+				<td class="tdbg">14</td>
+				<td class="tdbg">ALL</td>
+				<td class="tdbg">Clothing</td>
+				<td class="tdbg">6</td>
+				<td class="tdbg">2</td>
+				<td class="tdbg">1</td>
+				<td class="tdbg">3,264</td>
+				<td class="tdbg">330</td>
+				<td class="tdbg">913</td>
+				<td class="tdbg">36</td>
+				<td class="tdbg">682/ 08</td>
+				<td class="tdbg" style="border-right:none;">62</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="detaimgbg">
+							<%=image_tag("deta-img3.jpg",:alt="",:size=>"53x51")%>
+					</div>
+				</td>
+				<td>164</td>
+				<td>FT</td>
+				<td> Software </td>
+				<td>3</td>
+				<td>5</td>
+				<td>14</td>
+				<td>706</td>
+				<td>919</td>
+				<td>312</td>
+				<td>71 </td>
+				<td>186 / 01</td>
+				<td style="border-right:none;">80</td>
+			</tr>
+			<tr>
+				<td class="tdbg">
+					<div class="detaimgbg">
+						<%=image_tag("deta-img4.jpg",:alt="",:size=>"53x51")%>
+						<img src="images/deta-img4.jpg" alt="" width="53" height="51" />
+					</div>
+				</td>
+				<td class="tdbg">21</td>
+				<td class="tdbg">PT</td>
+				<td class="tdbg">Construct</td>
+				<td class="tdbg">15</td>
+				<td class="tdbg">3</td>
+				<td class="tdbg">11</td>
+				<td class="tdbg">9,288</td>
+				<td class="tdbg">278</td>
+				<td class="tdbg">678</td>
+				<td class="tdbg">36</td>
+				<td class="tdbg">818 / 07</td>
+				<td class="tdbg" style="border-right:none;">56</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="detaimgbg">
+						<%=image_tag("deta-img3.jpg",:alt="",:size=>"53x51")%>
+					</div>
+				</td>
+				<td>33</td>
+				<td>FT</td>
+				<td> Restaurant</td>
+				<td>7</td>
+				<td>0</td>
+				<td>0</td>
+				<td>1,656</td>
+				<td>1,024</td>
+				<td>182</td>
+				<td>71 </td>
+				<td>712 / 03</td>
+				<td style="border-right:none;">73</td>
+			</tr>
+
+			<tr>
+				<td class="tdbg">
+					<div class="detaimgbg">
+						<%=image_tag("deta-img2.jpg",:alt="",:size=>"53x51")%>
+					</div>
+				</td>
+				<td class="tdbg">14</td>
+				<td class="tdbg">ALL</td>
+				<td class="tdbg">Clothing</td>
+				<td class="tdbg">6</td>
+				<td class="tdbg">2</td>
+				<td class="tdbg">1</td>
+				<td class="tdbg">3,264</td>
+				<td class="tdbg">330</td>
+				<td class="tdbg">913</td>
+				<td class="tdbg">36</td>
+				<td class="tdbg">682/ 08</td>
+				<td class="tdbg" style="border-right:none;">62</td>
+			</tr>
+		</table>
+  </div>
+  <div class="paging">
+    <ul>
+      <li>
+      	<%=link_to "#" do%>
+      		<strong>PREV</strong>
+      	<%end%>
+    	</li>
+		  <li><%=link_to "#","1"%></li>
+		  <li><%=link_to "#","2"%></li>
+		  <li><%=link_to "#","3"%></li>
+		  <li><%=link_to "#","4"%></li>
+		  <li class="last">
+		  	<%=link_to "#" do%>
+		  		<strong>NEXT</strong>
+		  	<%end%>
+	  	</li>
+    </ul>
+    <div class="cl"></div>
+  </div>
+</div>
+</div>
+  <div class="cl"></div>
+</div>
+ <!--MIddle part html end here-->

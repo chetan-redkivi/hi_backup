@@ -1,6 +1,13 @@
 / Middle part html start here
+.edit-topsearch
+  .leftbt
+    %h3 Why You Need Me
+    in  65 characters or less...
+  .rightinput
+    %span #{@user_profile.description}
+  .cl
 .middlebg
-  .print-text Printable Virsion
+  .print-text #{t 'profile.view.printable_version'}
   .profileEdit.mrB15
     = render :partial => 'user_profile'
   .cl
@@ -13,28 +20,28 @@
         .threebox
           .p-one
             %h2
-              Overall Score
+              #{t 'profile.network.peerindex.overall_score'}
               = image_tag("help.png",size: "16x16",class: "help")
             .ylobox
-              Peerbox
-              %h1 16
+              #{t 'profile.network.peerindex.peerbox'}
+              %h1 #{current_user.peerindex_count.value}
           .p-two
             %h2
-              Score Breakdown
+              #{t 'profile.network.peerindex.score_breakdown'}
               = image_tag("help.png",size: "16x16",class: "help")
             %ul
               %li
                 = image_tag("pink-img.jpg")
-                Activity 76
+                #{t 'profile.network.peerindex.activity'} #{session["activity"]}
               %li
                 = image_tag("green-img.jpg")
-                Audience 62
+                #{t 'profile.network.peerindex.audience'} #{session["audience"]}
               %li
                 = image_tag("blue-img.jpg.jpg")
-                Authority 52
+                #{t 'profile.network.peerindex.authority'} #{session["authority"]}
           .p-three
             %h2
-              Score Breakdown
+              #{t 'profile.network.peerindex.score_breakdown'}
               \#{image_tag("help.png",size: "16x16",class: "help")}
             %ul
               %li

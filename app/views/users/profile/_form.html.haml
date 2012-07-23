@@ -6,7 +6,7 @@
       - else
         = image_tag(@user_profile.img_url,:size => "162x162",:border=>"0")
   .selectProfile
-    %label Choose Profile Image
+    %label #{t('profile.choose_profile_img')}
     %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
       %tr
         %td{:align => "left", :valign => "top"}
@@ -31,14 +31,14 @@
 .welcomePart
   %h2.title  Welcome #{(@user_profile.fullname.nil? && @user_profile.fullname.blank?)?session[:screen_name] : @user_profile.fullname}!
   %span.listRow
-    %label.field Full Name
+    %label.field #{t('profile.fullname')}
     = f.text_field("fullname")
   %span.listRow
-    %label.field Email
+    %label.field #{t('profile.email')}
     = f.text_field("email")
   %span.listRow
     %label.field
-      Position
+      = t('profile.position')
       \#{link_to "","#",:title => "title",:class => "help"}
     - if !@positions.nil?
       - @positions.each do |p|
@@ -47,16 +47,16 @@
           %label
             = p.title
   %span.listRow
-    %label.field Zip Code
+    %label.field #{t('profile.zipcode')}
     = f.text_field("zipcode")
   %span.listRow
-    %label.field Industry
+    %label.field #{t('profile.industry')}
     = select_tag 'user_profile[industries][]',
         options_from_collection_for_select(@industries, :id, :title, (@user_profile.user_industries.blank? ? "" : @user_profile.user_industries.first.industry.id)) ,
         :style=>"width:250px;",:size=>"1"
 .rightExperience
   .darkBox.mrB10
-    %h6.mrB8 Years of Experience
+    %h6.mrB8 #{t('profile.experience')}
     - if !@departments.nil?
       - @departments.each do |d|
         %span.listRow
@@ -67,8 +67,8 @@
               @user_profile.user_experiences.blank? ? "" : @user_profile.user_experiences.select{|user_exp| user_exp.department.id == d.id}.first.exp_in_yrs),:style => "width:162px;",:size=>"1"
   .darkBoxBottom
     %h6.mrB3
-      Resume
-      %span (Accepted file formats: .doc, .rtf)
+      = t('profile.resume')
+      %span #{t('profile.accepted_file_formats')}
     = file_field_tag "user_profile[user_attachments][]"
     %br
     - @user_profile.user_attachments.each do |file|

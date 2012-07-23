@@ -66,12 +66,12 @@ GEM
       railties (>= 3.0.0)
     faraday (0.8.1)
       multipart-post (~> 1.1)
-    fb_graph (2.4.17)
+    fb_graph (2.4.19)
       httpclient (>= 2.2.0.2)
       rack-oauth2 (>= 0.14.4)
       tzinfo
     ffaker (1.15.0)
-    ffi (1.0.11)
+    ffi (1.1.0)
     fog (1.4.0)
       builder
       excon (~> 0.14.0)
@@ -213,7 +213,7 @@ GEM
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
       rspec-mocks (~> 2.11.0)
-    rspec-core (2.11.0)
+    rspec-core (2.11.1)
     rspec-expectations (2.11.1)
       diff-lcs (~> 1.1.3)
     rspec-mocks (2.11.1)
@@ -245,7 +245,7 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    twitter (3.1.1)
+    twitter (3.3.1)
       faraday (~> 0.8)
       multi_json (~> 1.3)
       simple_oauth (~> 0.1.6)

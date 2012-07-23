@@ -1,0 +1,313 @@
+/ Middle part html start here
+.middlebg
+  / Left part html start here
+  .leftpart
+    .leftbloks
+      / POSITION BLOCK
+      .position
+        %h3 Position
+        %ul
+          %li
+            = check_box_tag("check_box",'','',:id=>"check_box")
+            Full Time
+          %li
+            = check_box_tag("check_box",'','',:id=>"check_box")
+            Part Time
+          %li
+            = check_box_tag("check_box",'','',:id=>"check_box")
+            Promotional
+      / POSITION BLOCK END
+      .cl
+    .leftbloks
+      / ZIPCODE BLOCK
+      .zipcode
+        .ziptext Zipcode:
+        .zipbox
+          = text_field_tag("textfield2","",:placeholder=> "e.g. 15650",:id =>"textfield2" )
+      %p 0mi  250mi   ALL
+      .slidebg
+        .fill-slidebg
+          .scrollbg
+            = link_to image_tag("scrollbg.png"),"#"
+      / ZIPCODE BLOCK END
+      .cl
+    .leftbloks
+      / INDUSTRY BLOCK
+      %h3 Industry
+      = select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown5",:size=>"1",:style=>"width:135px;"
+      / INDUSTRY BLOCK END
+      .cl
+    .leftbloks
+      / INDUSTRY BLOCK
+      %h3 Year of Experience
+      .btnBlue.btspace Sales
+      = select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown6",:size=>"1",:style=>"width:135px; margin-bottom:20px;"
+      .btnOrange.btspace Marketing
+      = select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown7",:size=>"1",:style=>"width:135px; margin-bottom:20px;"
+      .btnSlate.btspace Advertising
+      = select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown8",:size=>"1",:style=>"width:135px;"
+      / INDUSTRY BLOCK END
+      .cl
+    .leftbloks.last
+      / INDUSTRY BLOCK
+      %h3 Twitter Followers
+      = select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown9",:size=>"1",:style=>"width:135px; margin-bottom:15px;"
+      %h3 Linkedln Contacts
+      = select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown10",:size=>"1",:style=>"width:135px; margin-bottom:15px;"
+      %h3 Facebook Friends
+      = select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown11",:size=>"1",:style=>"width:135px; margin-bottom:15px;"
+      %h3 Klout Score
+      = select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown12",:size=>"1",:style=>"width:135px; margin-bottom:15px;"
+      %h3 Kred Score
+      = select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown13",:size=>"1",:style=>"width:135px; margin-bottom:15px;"
+      %h3 Peerindex Score
+      = select_tag "basic-combo", options_for_select((1..35).to_a.each { |u| [u,u] }),:id=>id="dropdown14",:size=>"1",:style=>"width:135px; margin-bottom:15px;"
+      / INDUSTRY BLOCK END
+      .cl
+  / Left part html start here
+  .rightpart
+    %h1 Search Results
+    .intext
+      .intop
+        .intop-left
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Quisque dictum   eros vel orci imperdiet mattis at non sapien.
+          Aliquam quam orci, varius   sit amet rutrum vel, eleifend
+        .paging
+          %ul
+            %li
+              = link_to "#" do
+                %strong PREV
+            %li= link_to "1","#"
+            %li= link_to "2","#"
+            %li= link_to "3","#"
+            %li= link_to "4","#"
+            %li.last
+              = link_to "#" do
+                %strong NEXT
+          .cl
+        .cl
+      .detabox
+        %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
+          %tr
+            %td.titlebg2{:width => "75"} Candidate
+            %td.titlebg{:width => "75"}
+              Distance
+              \#{image_tag("downaro.jpg",:class=>"downaro",:alt=>"")}
+              %br/
+              %span (miles)
+            %td.titlebg2{:width => "75"}
+              Position
+              \#{image_tag("downaro.jpg",:class=>"downaro",:alt=>"")}
+            %td.titlebg{:width => "75"}
+              Industry
+              \#{image_tag("downaro.jpg",:class=>"downaro",:alt=>"")}
+            %td.titlebg.blue-bdr{:width => "55"}
+              S
+              \#{image_tag("downaro.jpg",:class=>"downaro",:alt=>"")}
+              %br/
+              %span (years )
+            %td.titlebg.org-bdr{:width => "55"}
+              M
+              \#{image_tag("downaro.jpg",:class=>"downaro",:alt=>"")}
+              %br/
+              %span (years )
+            %td.titlebg.slate-bdr{:width => "55"}
+              S
+              \#{image_tag("downaro.jpg",:class=>"downaro",:alt=>"")}
+              %br/
+              %span (years )
+            %td.titlebg{:width => "55"}
+              = image_tag("twitter-icon.jpg",:alt=>"")
+              = image_tag("downaro.jpg",:class=>"downaro2",:alt=>"")
+            %td.titlebg2{:width => "50"}
+              = image_tag("in-icon.jpg",:alt=>"")
+              = image_tag("downaro.jpg",:class=>"downaro2",:alt=>"")
+            %td.titlebg{:width => "50"}
+              = image_tag("facebook-icon.jpg",:alt=>"")
+              = image_tag("downaro.jpg",:class=>"downaro2",:alt=>"")
+            %td.titlebg2{:width => "50"}
+              = image_tag("k-icon.jpg",:alt=>"")
+              = image_tag("downaro.jpg",:class=>"downaro2",:alt=>"")
+            %td.titlebg{:width => "50"}
+              = image_tag("kr-icon.jpg",:alt=>"")
+              = image_tag("downaro.jpg",:class=>"downaro2",:alt=>"")
+            %td.titlebg2{:style => "border-right:none;", :width => "50"}
+              = image_tag("3circl-icon.jpg",:alt=>"")
+              = image_tag("downaro.jpg",:class=>"downaro2",:alt=>"")
+          %tr
+            %td
+              .detaimgbg
+                = image_tag("deta-img1.jpg",:alt=>"",:size=>"53x51")
+            %td 631
+            %td FT
+            %td Media
+            %td 3
+            %td 5
+            %td 8
+            %td 12,419
+            %td 560
+            %td 274
+            %td 71
+            %td 344/02
+            %td{:style => "border-right:none;"} 75
+          %tr
+            %td.tdbg
+              .detaimgbg
+                = image_tag("deta-img2.jpg",:alt=>"",:size=>"53x51")
+            %td.tdbg 14
+            %td.tdbg ALL
+            %td.tdbg Clothing
+            %td.tdbg 6
+            %td.tdbg 2
+            %td.tdbg 1
+            %td.tdbg 3,264
+            %td.tdbg 330
+            %td.tdbg 913
+            %td.tdbg 36
+            %td.tdbg 682/ 08
+            %td.tdbg{:style => "border-right:none;"} 62
+          %tr
+            %td
+              .detaimgbg
+                = image_tag("deta-img3.jpg",:alt=>"",:size=>"53x51")
+            %td 164
+            %td FT
+            %td Software
+            %td 3
+            %td 5
+            %td 14
+            %td 706
+            %td 919
+            %td 312
+            %td 71
+            %td 186 / 01
+            %td{:style => "border-right:none;"} 80
+          %tr
+            %td.tdbg
+              .detaimgbg
+                = image_tag("deta-img4.jpg",:alt=>"",:size=>"53x51")
+            %td.tdbg 21
+            %td.tdbg PT
+            %td.tdbg Construct
+            %td.tdbg 15
+            %td.tdbg 3
+            %td.tdbg 11
+            %td.tdbg 9,288
+            %td.tdbg 278
+            %td.tdbg 678
+            %td.tdbg 36
+            %td.tdbg 818 / 07
+            %td.tdbg{:style => "border-right:none;"} 56
+          %tr
+            %td
+              .detaimgbg
+                = image_tag("deta-img3.jpg",:alt=>"",:size=>"53x51")
+            %td 33
+            %td FT
+            %td Restaurant
+            %td 7
+            %td 0
+            %td 0
+            %td 1,656
+            %td 1,024
+            %td 182
+            %td 71
+            %td 712 / 03
+            %td{:style => "border-right:none;"} 73
+          %tr
+            %td.tdbg
+              .detaimgbg
+                = image_tag("deta-img2.jpg",:alt=>"",:size=>"53x51")
+            %td.tdbg 14
+            %td.tdbg ALL
+            %td.tdbg Clothing
+            %td.tdbg 6
+            %td.tdbg 2
+            %td.tdbg 1
+            %td.tdbg 3,264
+            %td.tdbg 330
+            %td.tdbg 913
+            %td.tdbg 36
+            %td.tdbg 682/ 08
+            %td.tdbg{:style => "border-right:none;"} 62
+          %tr
+            %td
+              .detaimgbg
+                = image_tag("deta-img3.jpg",:alt=>"",:size=>"53x51")
+            %td 164
+            %td FT
+            %td Software
+            %td 3
+            %td 5
+            %td 14
+            %td 706
+            %td 919
+            %td 312
+            %td 71
+            %td 186 / 01
+            %td{:style => "border-right:none;"} 80
+          %tr
+            %td.tdbg
+              .detaimgbg
+                = image_tag("deta-img4.jpg",:alt=>"",:size=>"53x51")
+                %img{:alt => "", :height => "51", :src => "images/deta-img4.jpg", :width => "53"}/
+            %td.tdbg 21
+            %td.tdbg PT
+            %td.tdbg Construct
+            %td.tdbg 15
+            %td.tdbg 3
+            %td.tdbg 11
+            %td.tdbg 9,288
+            %td.tdbg 278
+            %td.tdbg 678
+            %td.tdbg 36
+            %td.tdbg 818 / 07
+            %td.tdbg{:style => "border-right:none;"} 56
+          %tr
+            %td
+              .detaimgbg
+                = image_tag("deta-img3.jpg",:alt=>"",:size=>"53x51")
+            %td 33
+            %td FT
+            %td Restaurant
+            %td 7
+            %td 0
+            %td 0
+            %td 1,656
+            %td 1,024
+            %td 182
+            %td 71
+            %td 712 / 03
+            %td{:style => "border-right:none;"} 73
+          %tr
+            %td.tdbg
+              .detaimgbg
+                = image_tag("deta-img2.jpg",:alt=>"",:size=>"53x51")
+            %td.tdbg 14
+            %td.tdbg ALL
+            %td.tdbg Clothing
+            %td.tdbg 6
+            %td.tdbg 2
+            %td.tdbg 1
+            %td.tdbg 3,264
+            %td.tdbg 330
+            %td.tdbg 913
+            %td.tdbg 36
+            %td.tdbg 682/ 08
+            %td.tdbg{:style => "border-right:none;"} 62
+      .paging
+        %ul
+          %li
+            = link_to "#" do
+              %strong PREV
+          %li= link_to "1","#"
+          %li= link_to "2","#"
+          %li= link_to "3","#"
+          %li= link_to "4","#"
+          %li.last
+            = link_to "#" do
+              %strong NEXT
+        .cl
+  .cl
+/ MIddle part html end here

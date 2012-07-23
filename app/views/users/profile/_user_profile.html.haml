@@ -6,36 +6,36 @@
   .profilebox
     .profile-det
       .profile-name
-        Email:
+        #{t 'profile.email'}:
         %br/
       .profile-detail
         %span
           = link_to "/",class:  "btnOrg" do
-            %span Contact Now
+            %span #{t 'profile.view.contact_now'}
     .profile-det
-      .profile-name Position:
+      .profile-name #{t 'profile.position'}:
       .profile-detail
         - if !@user_positions.blank?
           - @user_positions.each do |user_pos|
             .checktab
-              = check_box_tag("name",'','',checked:'true')
+              = check_box_tag("name",'','',checked: 'true')
               = user_pos.position.title
     .profile-det
       .profile-name
-        Location:
-        = image_tag("help.png",size: "16x16", class:"help")
+        #{t 'profile.location'}:
+        = image_tag("help.png",size: "16x16", class: "help")
       .profile-detail New York City, NY 12345
     .profile-det
-      .profile-name Distance:
+      .profile-name #{t 'profile.distance'}:
       .profile-detail 7 Miles
     .profile-det
-      .profile-name Industry:
+      .profile-name #{t 'profile.industry'}:
       .profile-detail
         - @user_profile.user_industries.each do |user_industry|
           = user_industry.industry.title
 .rightExperience
   .darkBox.mrB10
-    %h6.mrB8 Years of Experience
+    %h6.mrB8 #{t 'profile.experience'}
     - if !@departments.nil?
       - @departments.each do |d|
         %span.listRow
@@ -44,10 +44,10 @@
             = link_to "","#",:class => "help mrT3",:title => "Help"
           .yeartext #{@user_profile.user_experiences.select{|user_exp| user_exp.department.id == d.id}.first.exp_in_yrs} Years
   .dark-bottom
-    .box1 Resume
+    .box1 #{t 'profile.resume'}
     .box2
       %span
-        = link_to "",class:  "btnOrg" do
-          %span Download Resume
+        = link_to "/users/profile/download?profile=#{@user_profile.id}",class:  "btnOrg" do
+          %span #{t 'profile.view.download_resume'}
     .box3
-      %em (.doc, rtf)
+      %em #{t 'profile.view.file_formats'}

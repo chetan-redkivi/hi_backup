@@ -9,11 +9,13 @@ class Businesses::SearchController < ApplicationController
       key = SecureRandom.hex(10)
       twitter = split_range(params[:twitter])
       r.multi do
+
         r.zunionstore(key, ['user::twit_rank'])
         r.zremrangebyscore(key, 0, twitter[0]-1)
         r.zremrangebyscore(key, twitter[1]+1, 99999)
       end
       sets << key
+
     end
     if params[:facebook]
       key = SecureRandom.hex(10)
@@ -31,9 +33,10 @@ class Businesses::SearchController < ApplicationController
     render :json=>{
       :count=>Redis.current.zcard(result_key),
       :users=>User.where(:id => Redis.current.zrevrange(result_key, 0, 100))
-    }
+    } and return false
     sets << result_key
-    sets.each { |s| Redis.current.del s }
+    render :text => sets and return false
+		 sets.each { |s| Redis.current.del s }
   end
 
   private

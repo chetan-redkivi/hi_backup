@@ -4,24 +4,17 @@
       = link_to image_tag("logo.png"),"index"
     .topright
       .top-icons
-        = link_to "","#",:class => "twitticon"
-        = link_to "","#",:class => "facebookicon"
-        = link_to "","#",:class => "inicon"
+        = link_to "", user_omniauth_authorize_path(:twitter),class: "twitticon"
+        = link_to "",user_omniauth_authorize_path(:facebook),:class => "facebookicon"
+        = link_to "",user_omniauth_authorize_path(:linkedin),:class => "inicon"
         = link_to "","#",:class => "shareicon"
         .cl
-      .myac
-        = link_to "My Account","#",:onclick => "showHide();"
-      #toolTipBox.tooltipMessage.ac-box{:style => " display:none;"}
-        %ul
-          %li= link_to "Edit Account","#"
-          %li= link_to "Saved Profiles","#"
-          %li= link_to "Sign Out","#",:class=>"last"
+      -if user_signed_in?
+        .myac
+          = link_to t('header.my_account'),"#",:onclick => "showHide();"
+        #toolTipBox.tooltipMessage.ac-box{:style => " display:none;"}
+          %ul
+            %li= link_to t('header.edit_account'),"/users/profile_edit"
+            %li= link_to t('header.saved_profile'),"/users/profile_view"
+            %li= link_to t('header.signout'), destroy_user_session_path,class: "last",method: :delete
     .cl
-  .edit-topsearch
-    .leftbt
-      %h3 Why You Need Me
-      in  65 characters or less...
-    .rightinput
-      = yield(:status_desc)
-    .cl
-    .rem-text 65 characters remaining

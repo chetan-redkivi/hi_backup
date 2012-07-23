@@ -14,12 +14,12 @@
           %li= link_to("Presss","#")
           %li= link_to("Contact us","#")
       .finput
-        .ftext Receive Updates
-        = text_field_tag("textfield","",:placeholder => "Enter Email Address")
+        .ftext #{t('footer.receive_updates')}
+        = text_field_tag("textfield","",:placeholder => t('footer.email_placeholder'))
         = submit_tag("",:id => "button",:name=> "button")
       .cl
     .fline
-      .coyright Copyright © 2012 Hire Influence. All rights reserved.
+      .coyright #{t('footer.copyright')}
       .btmlogo
         = link_to "","#",:class => "twitticon"
         = link_to "","#",:class => "facebookicon"

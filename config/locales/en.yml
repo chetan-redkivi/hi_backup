@@ -2,4 +2,73 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  header:
+    my_account: 'My Account'
+    edit_account: 'Edit Account'
+    saved_profile: 'Saved Profiles'
+    signout: 'Sign Out'
+  footer:
+     receive_updates: 'Receive Updates'
+     email_placeholder: 'Enter Email Address'
+     copyright: 'Copyright © 2012 Hire Influence. All rights reserved.'
+  profile:
+    why_me: 'Why You Need Me'
+    status_placeholder_msg: 'Start typing here...'
+    in_65_chars: 'in  65 characters or less...'
+    chars_remaining: "%{total_chars} characters remaining"
+    choose_profile_img: 'Choose Profile Image'
+    fullname: 'Full Name'
+    email: 'Email'
+    position: 'Position'
+    zipcode: 'Zip Code'
+    industry: 'Industry'
+    location: 'Location'
+    distance: 'Distance'
+    experience: 'Years of Experience'
+    resume: 'Resume'
+    accepted_file_formats: '(Accepted file formats: .doc, .rtf)'
+    view:
+      printable_version: 'Printable Version'
+      get_connected: 'Get Connected'
+      contact_now: 'Contact Now'
+      download_resume: 'Download Resume'
+      file_formats: '(.doc, rtf)'
+    network:
+      networks: 'Networks'
+      connect_with_hireinfluence: 'Connect your networks with Hire Influence to maximize your exposure to potential employers.'
+      connected_as: 'Connected as'
+      connect_now: 'Connect now'
+      unlink: 'Unlink'
+      influence_scoring: 'Influence Scoring'
+      klout:
+        label: 'Klout'
+        link: 'http://klout.com/#/'
+      kred:
+        label: 'Kred'
+        link: 'http://kred.com/'
+      twitter:
+        link: 'https://twitter.com/'
+        followers: 'Followers'
+        follow: 'Follow'
+      fb:
+        link: 'https://facebook.com/'
+        friends: 'Friends'
+        friend: 'Friend'
+      peerindex:
+        label: 'Peer Index'
+        link: 'http://peerindex.com/'
+        overall_score: 'Overall Score'
+        peerbox: 'Peerbox'
+        score_breakdown: 'Score Breakdown'
+        activity: 'Activity'
+        audience: 'Audience'
+        authority: 'Authority'
+      linkedin:
+        linked: 'Linked'
+        recommendations: 'Recommendations'
+        max_recommendations_msg: 'Please select a MAXIMUM of 5 recommendations to be made viewable to employers.'
+        view_more: 'View More'
+        connections: 'Connections'
+        connect: 'Connect'
+        read_full: 'Read Full'
+        read_all_full: 'Read All Full Recommendations'

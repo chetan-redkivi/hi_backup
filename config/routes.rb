@@ -15,6 +15,9 @@ HireInfluence::Application.routes.draw do
     match '/klout_score' => 'other_score#klout_score'
     match '/kred_score' => 'other_score#kred_score'
     match '/peerindex' => 'other_score#peerindex'
+	  match '/profile/unlink' => 'profile#unlink'
+	  match '/profile/download' => 'profile#download'
+	  match '/search_profile/search' => 'search_profile#search'
   end
 
   namespace :businesses do
