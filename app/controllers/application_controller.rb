@@ -13,3 +13,9 @@ class ApplicationController < ActionController::Base
     end
   end
 end
+
+http://rtdptech.com/2010/12/importing-gmail-contacts-list-to-rails-application/
+
+http://stackoverflow.com/questions/3903278/ruby-oauth-nightmare-using-contacts-api
+
+https://github.com/cardmagic/contacts/blob/master/examples/grab_contacts.rb
